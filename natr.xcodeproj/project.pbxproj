@@ -121,7 +121,10 @@
 		0220C9E826B829B700B640EF /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				0220C9EA26B829B700B640EF /* ContentView.swift */,
+				0220CA3F26B82F9500B640EF /* Utilities */,
+				0220CA4026B82FA900B640EF /* Models */,
+				0220CA4126B82FB400B640EF /* ViewModels */,
+				0220CA4226B82FC700B640EF /* Views */,
 				0220C9E926B829B700B640EF /* natrApp.swift */,
 				0220CA3C26B82E7300B640EF /* GoogleService-Info.plist */,
 				0220C9EB26B829B800B640EF /* Assets.xcassets */,
@@ -173,6 +176,35 @@
 				0220CA1126B829B900B640EF /* Info.plist */,
 			);
 			path = "Tests macOS";
+			sourceTree = "<group>";
+		};
+		0220CA3F26B82F9500B640EF /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		0220CA4026B82FA900B640EF /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		0220CA4126B82FB400B640EF /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		0220CA4226B82FC700B640EF /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0220C9EA26B829B700B640EF /* ContentView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
