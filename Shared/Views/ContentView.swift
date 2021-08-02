@@ -8,9 +8,22 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @AppStorage("log_Status") var status = false
+    
     var body: some View {
-        Text("Hello, world")
-            .padding()
+        ZStack{
+            if status{
+//                MessagesView()
+            }
+            else {
+                NavigationView{
+                    LoginView()
+                        .navigationBarHidden(true)
+                        .navigationBarBackButtonHidden(true)
+                }
+            }
+        }
     }
 }
 

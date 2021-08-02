@@ -27,6 +27,22 @@
 		0220CA3B26B82CBA00B640EF /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 0220CA3A26B82CBA00B640EF /* FirebaseAuth */; };
 		0220CA3D26B82E7300B640EF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0220CA3C26B82E7300B640EF /* GoogleService-Info.plist */; };
 		0220CA3E26B82E7300B640EF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0220CA3C26B82E7300B640EF /* GoogleService-Info.plist */; };
+		0220CA4526B832DD00B640EF /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0220CA4426B832DD00B640EF /* LoginView.swift */; };
+		0220CA4626B832DD00B640EF /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0220CA4426B832DD00B640EF /* LoginView.swift */; };
+		0220CA4826B8348900B640EF /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0220CA4726B8348900B640EF /* LoginViewModel.swift */; };
+		0220CA4926B8348900B640EF /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0220CA4726B8348900B640EF /* LoginViewModel.swift */; };
+		0220CA4B26B834B800B640EF /* Countries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0220CA4A26B834B800B640EF /* Countries.swift */; };
+		0220CA4C26B834B800B640EF /* Countries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0220CA4A26B834B800B640EF /* Countries.swift */; };
+		0220CA4F26B834FF00B640EF /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0220CA4E26B834FF00B640EF /* AlertView.swift */; };
+		0220CA5026B834FF00B640EF /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0220CA4E26B834FF00B640EF /* AlertView.swift */; };
+		0220CA5226B8351C00B640EF /* Indicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0220CA5126B8351C00B640EF /* Indicator.swift */; };
+		0220CA5326B8351C00B640EF /* Indicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0220CA5126B8351C00B640EF /* Indicator.swift */; };
+		0220CA5526B8355B00B640EF /* VerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0220CA5426B8355B00B640EF /* VerificationView.swift */; };
+		0220CA5626B8355B00B640EF /* VerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0220CA5426B8355B00B640EF /* VerificationView.swift */; };
+		0220CA5826B8358800B640EF /* AccountCreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0220CA5726B8358800B640EF /* AccountCreationView.swift */; };
+		0220CA5926B8358800B640EF /* AccountCreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0220CA5726B8358800B640EF /* AccountCreationView.swift */; };
+		0220CA5B26B8369A00B640EF /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0220CA5A26B8369A00B640EF /* ImagePicker.swift */; };
+		0220CA5C26B8369A00B640EF /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0220CA5A26B8369A00B640EF /* ImagePicker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +78,14 @@
 		0220CA0F26B829B900B640EF /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
 		0220CA1126B829B900B640EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0220CA3C26B82E7300B640EF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		0220CA4426B832DD00B640EF /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		0220CA4726B8348900B640EF /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		0220CA4A26B834B800B640EF /* Countries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Countries.swift; sourceTree = "<group>"; };
+		0220CA4E26B834FF00B640EF /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
+		0220CA5126B8351C00B640EF /* Indicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Indicator.swift; sourceTree = "<group>"; };
+		0220CA5426B8355B00B640EF /* VerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationView.swift; sourceTree = "<group>"; };
+		0220CA5726B8358800B640EF /* AccountCreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCreationView.swift; sourceTree = "<group>"; };
+		0220CA5A26B8369A00B640EF /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,6 +205,7 @@
 		0220CA3F26B82F9500B640EF /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				0220CA5A26B8369A00B640EF /* ImagePicker.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -188,6 +213,7 @@
 		0220CA4026B82FA900B640EF /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				0220CA4A26B834B800B640EF /* Countries.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -195,6 +221,7 @@
 		0220CA4126B82FB400B640EF /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				0220CA4726B8348900B640EF /* LoginViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -202,9 +229,30 @@
 		0220CA4226B82FC700B640EF /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0220CA4326B832AE00B640EF /* Login */,
+				0220CA4D26B834E400B640EF /* Helpers */,
 				0220C9EA26B829B700B640EF /* ContentView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		0220CA4326B832AE00B640EF /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				0220CA4426B832DD00B640EF /* LoginView.swift */,
+				0220CA5426B8355B00B640EF /* VerificationView.swift */,
+				0220CA5726B8358800B640EF /* AccountCreationView.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		0220CA4D26B834E400B640EF /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				0220CA4E26B834FF00B640EF /* AlertView.swift */,
+				0220CA5126B8351C00B640EF /* Indicator.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -382,8 +430,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0220CA5526B8355B00B640EF /* VerificationView.swift in Sources */,
+				0220CA5826B8358800B640EF /* AccountCreationView.swift in Sources */,
+				0220CA4826B8348900B640EF /* LoginViewModel.swift in Sources */,
+				0220CA5226B8351C00B640EF /* Indicator.swift in Sources */,
+				0220CA4526B832DD00B640EF /* LoginView.swift in Sources */,
 				0220CA1426B829B900B640EF /* ContentView.swift in Sources */,
+				0220CA4B26B834B800B640EF /* Countries.swift in Sources */,
+				0220CA5B26B8369A00B640EF /* ImagePicker.swift in Sources */,
 				0220CA1226B829B900B640EF /* natrApp.swift in Sources */,
+				0220CA4F26B834FF00B640EF /* AlertView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -391,8 +447,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0220CA5626B8355B00B640EF /* VerificationView.swift in Sources */,
+				0220CA5926B8358800B640EF /* AccountCreationView.swift in Sources */,
+				0220CA4926B8348900B640EF /* LoginViewModel.swift in Sources */,
+				0220CA5326B8351C00B640EF /* Indicator.swift in Sources */,
+				0220CA4626B832DD00B640EF /* LoginView.swift in Sources */,
 				0220CA1526B829B900B640EF /* ContentView.swift in Sources */,
+				0220CA4C26B834B800B640EF /* Countries.swift in Sources */,
+				0220CA5C26B8369A00B640EF /* ImagePicker.swift in Sources */,
 				0220CA1326B829B900B640EF /* natrApp.swift in Sources */,
+				0220CA5026B834FF00B640EF /* AlertView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
