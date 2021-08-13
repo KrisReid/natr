@@ -29,9 +29,10 @@ class MessagesViewModel: ObservableObject {
     
     
     func fetchCurrentUser() {
-        let uid = Auth.auth().currentUser?.uid ?? "JlYwetxL2GN30CXMdWwrsiU5Qeq2"
+        let uid = Auth.auth().currentUser?.uid ?? "bHAMnTf0LkWvbo90vtzVnx1EPAs2"
         Firestore.firestore().collection("users").document(uid).addSnapshotListener { documentSnapshot, error in
             guard let document = documentSnapshot else { return }
+
             try? self.currentUser = document.data(as: User.self) ?? User(id: "", name: "", mobileNumber: "", imageUrl: "", fcmToken: "", groups: [], favourites: [])
             
             //fetch usersfavourites
@@ -43,7 +44,6 @@ class MessagesViewModel: ObservableObject {
                 }
             }
             
-
             //Register for push notifications
             let pushManager = PushNotificationManager(userID: uid)
             pushManager.registerForPushNotifications()
@@ -54,7 +54,7 @@ class MessagesViewModel: ObservableObject {
 
     func fetchMessages() {
 
-        let uid = Auth.auth().currentUser?.uid ?? "JlYwetxL2GN30CXMdWwrsiU5Qeq2"
+        let uid = Auth.auth().currentUser?.uid ?? "bHAMnTf0LkWvbo90vtzVnx1EPAs2"
 
         Firestore.firestore().collection("groups").whereField("members", arrayContains: uid).addSnapshotListener { (documentSnapshot, error) in
             

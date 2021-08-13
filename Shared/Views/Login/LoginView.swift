@@ -16,26 +16,21 @@ struct LoginView: View {
         
         ZStack {
             
-            LinearGradient(gradient: Gradient(colors: [Color("Background_Color"), Color(#colorLiteral(red: 0.2579757571, green: 0.6276962161, blue: 0.4713696837, alpha: 1))]), startPoint: .top, endPoint: .bottom)
+            Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))
                 .ignoresSafeArea()
             
             VStack {
-                
-                Image("aurora_icon")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 250, height: 250)
-                
-                Text("Welcome to Aurora")
+                                
+                Text("Welcome to Natr")
                     .font(.largeTitle)
                     .fontWeight(.heavy)
-                    .foregroundColor(Color("Text_Color"))
+                    .foregroundColor(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)))
                     .padding(.top, 50)
                 
                 Text("Please enter your mobile number")
                     .multilineTextAlignment(.center)
                     .font(.body)
-                    .foregroundColor(Color("Text_Color"))
+                    .foregroundColor(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)))
                     .padding(.top, 6)
                 
                 

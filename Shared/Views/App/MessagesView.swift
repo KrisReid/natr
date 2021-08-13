@@ -39,12 +39,12 @@ struct MessagesView: View {
                     MessageListView(chats: vm.chats, currentUser: vm.currentUser)
                     
                     //Testing
-                    NavigationLink(
-                        destination: ContactsView(),
-                        label: {
-                            Text("Contacts")
-                        }
-                    )
+//                    NavigationLink(
+//                        destination: ContactsView(),
+//                        label: {
+//                            Text("Contacts")
+//                        }
+//                    )
 
                 }
             }
