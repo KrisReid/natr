@@ -24,7 +24,7 @@ struct LoginView: View {
             
             VStack {
                 Blob(offset: change ? -200 : -100)
-                    .fill(Color(#colorLiteral(red: 0.8549019694, green: 0.250980407, blue: 0.4784313738, alpha: 1)))
+                    .fill(Color(#colorLiteral(red: 0.9696754813, green: 0.5562316775, blue: 0.5004004836, alpha: 1)))
                     .frame(height: 200)
                     .rotationEffect(.degrees(180))
                     .onAppear {
@@ -76,7 +76,7 @@ struct LoginView: View {
                             .frame(width: UIScreen.main.bounds.width - 30,height: 50)
                     })
                     .foregroundColor(Color("Button_Text_Color"))
-                    .background(Color(#colorLiteral(red: 0.8549019694, green: 0.250980407, blue: 0.4784313738, alpha: 1)))
+                    .background(Color("Button_Background_Color"))
                     .cornerRadius(10)
                     .padding(.top, 20)
                 }

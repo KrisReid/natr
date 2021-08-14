@@ -19,7 +19,7 @@ struct AccountCreationView: View {
         
         ZStack (alignment: .topLeading) {
             
-            LinearGradient(gradient: Gradient(colors: [Color("Background_Color"), Color(#colorLiteral(red: 0.2579757571, green: 0.6276962161, blue: 0.4713696837, alpha: 1))]), startPoint: .top, endPoint: .bottom)
+            Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))
                 .ignoresSafeArea()
             
             VStack {
