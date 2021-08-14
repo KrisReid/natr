@@ -21,7 +21,7 @@ struct VerificationView: View {
         
         ZStack (alignment: .topLeading) {
             
-            LinearGradient(gradient: Gradient(colors: [Color("Background_Color"), Color(#colorLiteral(red: 0.2579757571, green: 0.6276962161, blue: 0.4713696837, alpha: 1))]), startPoint: .top, endPoint: .bottom)
+            Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))
                 .ignoresSafeArea()
             
             HStack {
@@ -37,13 +37,13 @@ struct VerificationView: View {
             VStack {
                 
                 ZStack {
-                    Image("iPhone")
+                    Image("iPhone_dark")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 300, height: 300)
                         .padding()
                     
-                    Image(colorScheme == .dark ? "aurora_sms_dark" : "aurora_sms")
+                    Image(colorScheme == .dark ? "natr_sms_dark" : "natr_sms")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 100, height: 100)
