@@ -12,6 +12,9 @@ struct LoginView: View {
     
     @ObservedObject var loginVM = LoginViewModel()
     
+    private let animation = Animation.easeInOut(duration: 20.0).repeatForever(autoreverses: true)
+    @State private var change = false
+    
     var body: some View {
         
         ZStack {
@@ -20,19 +23,32 @@ struct LoginView: View {
                 .ignoresSafeArea()
             
             VStack {
-                                
+                Blob(offset: change ? -200 : -100)
+                    .fill(Color(#colorLiteral(red: 0.8549019694, green: 0.250980407, blue: 0.4784313738, alpha: 1)))
+                    .frame(height: 200)
+                    .rotationEffect(.degrees(180))
+                    .onAppear {
+                        withAnimation (self.animation) {
+                            change.toggle()
+                        }
+                    }
+                
+                Spacer()
+            }
+            .ignoresSafeArea()
+            
+            
+            VStack {
+                Spacer()
+                Spacer()
+                
                 Text("Welcome to Natr")
                     .font(.largeTitle)
                     .fontWeight(.heavy)
                     .foregroundColor(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)))
                     .padding(.top, 50)
                 
-                Text("Please enter your mobile number")
-                    .multilineTextAlignment(.center)
-                    .font(.body)
-                    .foregroundColor(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)))
-                    .padding(.top, 6)
-                
+                Spacer()
                 
                 HStack{
                     
@@ -49,8 +65,8 @@ struct LoginView: View {
                         .foregroundColor(Color("TextField_Text_Color"))
                         .background(Color("TextField_Color"))
                         .clipShape(RoundedRectangle(cornerRadius: 10))
-                    
-                } .padding(.top, 15)
+                }
+                .padding(.top, 15)
                 
                 
                 NavigationLink(destination: VerificationView(loginVM: loginVM),isActive: $loginVM.gotoVerify) {
@@ -60,7 +76,7 @@ struct LoginView: View {
                             .frame(width: UIScreen.main.bounds.width - 30,height: 50)
                     })
                     .foregroundColor(Color("Button_Text_Color"))
-                    .background(Color("Button_Background_Color"))
+                    .background(Color(#colorLiteral(red: 0.8549019694, green: 0.250980407, blue: 0.4784313738, alpha: 1)))
                     .cornerRadius(10)
                     .padding(.top, 20)
                 }
@@ -69,6 +85,7 @@ struct LoginView: View {
             .navigationBarTitle("")
             .navigationBarHidden(true)
             .navigationBarBackButtonHidden(true)
+
             .padding()
             
             if loginVM.loading {
