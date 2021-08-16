@@ -22,7 +22,7 @@ struct IndicatorView: View {
                     .font(.system(size: 14, weight: .semibold))
             }
             .padding()
-            .background(Color(#colorLiteral(red: 0.2579757571, green: 0.6276962161, blue: 0.4713696837, alpha: 1)))
+            .background(Color(#colorLiteral(red: 0.9696754813, green: 0.5562316775, blue: 0.5004004836, alpha: 1)))
             .cornerRadius(8)
         }
         

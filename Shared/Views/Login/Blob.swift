@@ -34,7 +34,7 @@ struct Blob_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
             Blob(offset: -100)
-                .fill(Color(#colorLiteral(red: 0.2614529133, green: 0.5135875344, blue: 0.5488628149, alpha: 1)))
+                .fill(Color(#colorLiteral(red: 0.9696754813, green: 0.5562316775, blue: 0.5004004836, alpha: 1)))
                 .frame(height: 200)
                 .rotationEffect(.degrees(180))
         }
