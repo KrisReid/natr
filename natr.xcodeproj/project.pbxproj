@@ -153,6 +153,7 @@
 		0220CA9A26BBF88C00B640EF /* PushNotificationSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationSender.swift; sourceTree = "<group>"; };
 		0220CA9D26BBFF3E00B640EF /* natr.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = natr.entitlements; sourceTree = "<group>"; };
 		024CDA7026CE68D80031670E /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		024CDA7126CE71B40031670E /* ConfigTest.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ConfigTest.xcconfig; sourceTree = "<group>"; };
 		0286A2E526C6601E007502AD /* Blob.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blob.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -201,6 +202,7 @@
 		0220C9E326B829B700B640EF = {
 			isa = PBXGroup;
 			children = (
+				024CDA7126CE71B40031670E /* ConfigTest.xcconfig */,
 				024CDA7026CE68D80031670E /* Config.xcconfig */,
 				0220CA9D26BBFF3E00B640EF /* natr.entitlements */,
 				0220C9E826B829B700B640EF /* Shared */,
