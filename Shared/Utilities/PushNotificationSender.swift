@@ -11,6 +11,9 @@ class PushNotificationSender {
     
     func sendPushNotification(to token: String, title: String, body: String) {
         
+        //Fetch the API Key
+        let cloudMessagingKey = Bundle.main.infoDictionary?["CLOUD_MESSAGING_KEY"] as? String
+
         //Set the URL
         let url = URL(string: "https://fcm.googleapis.com/fcm/send")
         guard url != nil else { return }
@@ -22,7 +25,7 @@ class PushNotificationSender {
         var request = URLRequest(url: url!, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 10)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue("123456", forHTTPHeaderField: "Authorization")
+        request.setValue(cloudMessagingKey, forHTTPHeaderField: "Authorization")
         request.httpBody = try? JSONSerialization.data(withJSONObject:jsonObject, options: [.prettyPrinted, .fragmentsAllowed])
         
         //Create the data task
