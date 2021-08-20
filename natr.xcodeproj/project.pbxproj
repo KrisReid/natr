@@ -85,6 +85,8 @@
 		0220CA9926BBF86E00B640EF /* PushNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0220CA9726BBF86E00B640EF /* PushNotificationManager.swift */; };
 		0220CA9B26BBF88C00B640EF /* PushNotificationSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0220CA9A26BBF88C00B640EF /* PushNotificationSender.swift */; };
 		0220CA9C26BBF88C00B640EF /* PushNotificationSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0220CA9A26BBF88C00B640EF /* PushNotificationSender.swift */; };
+		024CDA7426CF8A7A0031670E /* natrLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024CDA7326CF8A7A0031670E /* natrLogo.swift */; };
+		024CDA7526CF8A7A0031670E /* natrLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024CDA7326CF8A7A0031670E /* natrLogo.swift */; };
 		0286A2E626C6601E007502AD /* Blob.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0286A2E526C6601E007502AD /* Blob.swift */; };
 		0286A2E726C6601E007502AD /* Blob.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0286A2E526C6601E007502AD /* Blob.swift */; };
 /* End PBXBuildFile section */
@@ -153,6 +155,7 @@
 		0220CA9A26BBF88C00B640EF /* PushNotificationSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationSender.swift; sourceTree = "<group>"; };
 		0220CA9D26BBFF3E00B640EF /* natr.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = natr.entitlements; sourceTree = "<group>"; };
 		024CDA7226CE72740031670E /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		024CDA7326CF8A7A0031670E /* natrLogo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = natrLogo.swift; sourceTree = "<group>"; };
 		0286A2E526C6601E007502AD /* Blob.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blob.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -326,6 +329,7 @@
 				0220CA5426B8355B00B640EF /* VerificationView.swift */,
 				0220CA5726B8358800B640EF /* AccountCreationView.swift */,
 				0286A2E526C6601E007502AD /* Blob.swift */,
+				024CDA7326CF8A7A0031670E /* natrLogo.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -532,6 +536,7 @@
 			files = (
 				0220CA8F26BBF81700B640EF /* Contact.swift in Sources */,
 				0220CA5526B8355B00B640EF /* VerificationView.swift in Sources */,
+				024CDA7426CF8A7A0031670E /* natrLogo.swift in Sources */,
 				0220CA7A26BBF76A00B640EF /* ContactsViewModel.swift in Sources */,
 				0220CA8326BBF7C100B640EF /* CreateChatViewModel.swift in Sources */,
 				0220CA5826B8358800B640EF /* AccountCreationView.swift in Sources */,
@@ -571,6 +576,7 @@
 			files = (
 				0220CA9026BBF81700B640EF /* Contact.swift in Sources */,
 				0220CA5626B8355B00B640EF /* VerificationView.swift in Sources */,
+				024CDA7526CF8A7A0031670E /* natrLogo.swift in Sources */,
 				0220CA7B26BBF76A00B640EF /* ContactsViewModel.swift in Sources */,
 				0220CA8426BBF7C100B640EF /* CreateChatViewModel.swift in Sources */,
 				0220CA5926B8358800B640EF /* AccountCreationView.swift in Sources */,

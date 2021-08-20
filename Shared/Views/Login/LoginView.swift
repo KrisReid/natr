@@ -42,6 +42,7 @@ struct LoginView: View {
                 Spacer()
                 Spacer()
                 
+                
                 Text("Welcome to Natr")
                     .font(.largeTitle)
                     .fontWeight(.heavy)
