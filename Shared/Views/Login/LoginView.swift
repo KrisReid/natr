@@ -41,13 +41,10 @@ struct LoginView: View {
             VStack {
                 Spacer()
                 Spacer()
+                Spacer()
                 
-                
-                Text("Welcome to Natr")
-                    .font(.largeTitle)
-                    .fontWeight(.heavy)
-                    .foregroundColor(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)))
-                    .padding(.top, 50)
+                //Fix positioning
+                natrLogo()
                 
                 Spacer()
                 
