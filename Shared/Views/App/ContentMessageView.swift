@@ -16,15 +16,14 @@ struct ContentMessageView: View {
         Text(contentMessage)
             .padding(10)
             .foregroundColor(isCurrentUser ? Color.white : Color.black)
-            .background(isCurrentUser ? Color.blue : Color(UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1.0)))
+            .background(isCurrentUser ? Color(#colorLiteral(red: 0.9741148353, green: 0.5559167266, blue: 0.504724443, alpha: 1)) : Color(#colorLiteral(red: 0.9410838485, green: 0.9412414432, blue: 0.9410631061, alpha: 1)))
             .cornerRadius(10)
     }
 }
 
 struct ContentMessageView_Previews: PreviewProvider {
     static var previews: some View {
+        ContentMessageView(contentMessage: "Hi, I am your friend", isCurrentUser: true)
         ContentMessageView(contentMessage: "Hi, I am your friend", isCurrentUser: false)
-        ContentMessageView(contentMessage: "Hi, I am your friend", isCurrentUser: false)
-            .colorScheme(.dark)
     }
 }

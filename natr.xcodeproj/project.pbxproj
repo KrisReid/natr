@@ -85,6 +85,8 @@
 		0220CA9926BBF86E00B640EF /* PushNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0220CA9726BBF86E00B640EF /* PushNotificationManager.swift */; };
 		0220CA9B26BBF88C00B640EF /* PushNotificationSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0220CA9A26BBF88C00B640EF /* PushNotificationSender.swift */; };
 		0220CA9C26BBF88C00B640EF /* PushNotificationSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0220CA9A26BBF88C00B640EF /* PushNotificationSender.swift */; };
+		0233DECF26DD56BC00510F25 /* Dynamic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0233DECE26DD56BC00510F25 /* Dynamic.swift */; };
+		0233DED026DD56BC00510F25 /* Dynamic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0233DECE26DD56BC00510F25 /* Dynamic.swift */; };
 		024CDA7426CF8A7A0031670E /* natrLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024CDA7326CF8A7A0031670E /* natrLogo.swift */; };
 		024CDA7526CF8A7A0031670E /* natrLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024CDA7326CF8A7A0031670E /* natrLogo.swift */; };
 		024CDA7726CFCB4A0031670E /* natrCapsule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024CDA7626CFCB4A0031670E /* natrCapsule.swift */; };
@@ -156,6 +158,7 @@
 		0220CA9726BBF86E00B640EF /* PushNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationManager.swift; sourceTree = "<group>"; };
 		0220CA9A26BBF88C00B640EF /* PushNotificationSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationSender.swift; sourceTree = "<group>"; };
 		0220CA9D26BBFF3E00B640EF /* natr.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = natr.entitlements; sourceTree = "<group>"; };
+		0233DECE26DD56BC00510F25 /* Dynamic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dynamic.swift; sourceTree = "<group>"; };
 		024CDA7226CE72740031670E /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		024CDA7326CF8A7A0031670E /* natrLogo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = natrLogo.swift; sourceTree = "<group>"; };
 		024CDA7626CFCB4A0031670E /* natrCapsule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = natrCapsule.swift; sourceTree = "<group>"; };
@@ -359,6 +362,7 @@
 				0220CA7026BBF70700B640EF /* MessageView.swift */,
 				0220CA7326BBF72000B640EF /* ContentMessageView.swift */,
 				0220CA7626BBF73B00B640EF /* CreateChatView.swift */,
+				0233DECE26DD56BC00510F25 /* Dynamic.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -569,6 +573,7 @@
 				0220CA5B26B8369A00B640EF /* ImagePicker.swift in Sources */,
 				0220CA1226B829B900B640EF /* natrApp.swift in Sources */,
 				0220CA8626BBF7DC00B640EF /* User.swift in Sources */,
+				0233DECF26DD56BC00510F25 /* Dynamic.swift in Sources */,
 				0220CA6B26BBF6D500B640EF /* MessageListView.swift in Sources */,
 				0220CA8026BBF7A900B640EF /* ChatViewModel.swift in Sources */,
 				0220CA4F26B834FF00B640EF /* AlertView.swift in Sources */,
@@ -610,6 +615,7 @@
 				0220CA5C26B8369A00B640EF /* ImagePicker.swift in Sources */,
 				0220CA1326B829B900B640EF /* natrApp.swift in Sources */,
 				0220CA8726BBF7DC00B640EF /* User.swift in Sources */,
+				0233DED026DD56BC00510F25 /* Dynamic.swift in Sources */,
 				0220CA6C26BBF6D500B640EF /* MessageListView.swift in Sources */,
 				0220CA8126BBF7A900B640EF /* ChatViewModel.swift in Sources */,
 				0220CA5026B834FF00B640EF /* AlertView.swift in Sources */,

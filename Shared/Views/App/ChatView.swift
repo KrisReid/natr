@@ -13,61 +13,82 @@ struct ChatView: View {
     
     let chat: Chat
     let currentUser: User
-    
+
+    @State private var height: CGFloat = .zero
     @State var typingMessage: String = ""
     @ObservedObject private var keyboard = KeyboardResponder()
     @ObservedObject var vm: ChatViewModel
     
     var body: some View {
-        VStack {
-            ScrollView {
-                ScrollViewReader { value in
-                    
-//                    Text("Keyboard Height: \(keyboard.currentHeight)")
-                    
-                    //Why does this line of code actually make things work? Is it just aa timing thing????
-                    Button("") {
-                        value.scrollTo(vm.messages.last?.id, anchor: .bottom)
-                    }
-                    
-                    ForEach(vm.messages, id: \.self) { message in
-                        MessageView(currentMessage: message, imageUrl: chat.reciever.imageUrl, isCurrentUser: message.userId == currentUser.id ? true : false)
-                            .id(message.id)
-                    }
-                    .onAppear(perform: {
-                        value.scrollTo(vm.messages.last?.id, anchor: .bottom)
-                    })
-                }
-            }
-            .padding(.horizontal)
-            .padding(.bottom, keyboard.currentHeight == 0.0 ? 0 : 40)
-            
-            Spacer()
+        GeometryReader { geometry in
 
-            HStack {
-                TextEditor(text: $typingMessage)
-                    .frame(width: .infinity, height: 55)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 6)
-                            .stroke(Color(#colorLiteral(red: 0.8078074455, green: 0.8181154728, blue: 0.8177809715, alpha: 1)), lineWidth: 1)
-                    )
-                Button(action: sendMessage) {
-                    Image(systemName: "arrow.up.circle.fill")
-                        .resizable()
-                        .frame(width: 30, height: 30)
-                        .padding(.leading)
-                        .foregroundColor(typingMessage == "" ? Color.gray : Color.blue)
+            Color("Secondary_Background_Color")
+                .ignoresSafeArea()
+            
+            VStack {
+                ScrollView {
+                    ScrollViewReader { value in
+                        
+                        Button("") {
+                            value.scrollTo(vm.messages.last?.id, anchor: .bottom)
+                        }
+                        
+                        ForEach(vm.messages, id: \.self) { message in
+                            MessageView(currentMessage: message, imageUrl: chat.reciever.imageUrl, isCurrentUser: message.userId == currentUser.id ? true : false)
+                                .id(message.id)
+                        }
+                        .onAppear(perform: {
+                            value.scrollTo(vm.messages.last?.id, anchor: .bottom)
+                        })
+                    }
                 }
-                .disabled(typingMessage == "" ? true : false)
+                .padding(.horizontal)
+//                .padding(.bottom, keyboard.currentHeight == 0.0 ? 0 : 5)
+                
+                Spacer()
+
+                HStack {
+                    List {
+                        ZStack(alignment: .leading) {
+                            Text(typingMessage).foregroundColor(.clear).padding(6)
+                                .background(GeometryReader {
+                                    Color.clear.preference(key: ViewHeightKey.self, value: $0.frame(in: .local).size.height)
+                                })
+                            TextEditor(text: $typingMessage)
+                                
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 6)
+                                        .stroke(Color(#colorLiteral(red: 0.8078074455, green: 0.8181154728, blue: 0.8177809715, alpha: 1)), lineWidth: 1)
+                                )
+                        }
+                        .onPreferenceChange(ViewHeightKey.self) { height = $0 }
+                        .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+                    }
+                    .frame(height: height == 0 ? 50 : height)
+                    
+//                    .frame(minWidth: 0, idealWidth: geometry.size.width * 0.8, maxWidth: 0, minHeight: height, idealHeight: 46, maxHeight: height, alignment: .center)
+                    
+                    
+                    Button(action: sendMessage) {
+                        Image(systemName: "arrow.up.circle.fill")
+                            .resizable()
+                            .frame(width: 30, height: 30)
+                            .padding(.leading, 6)
+                            .foregroundColor(typingMessage == "" ? Color.gray : Color(#colorLiteral(red: 0.9741148353, green: 0.5559167266, blue: 0.504724443, alpha: 1)))
+                    }
+                    .disabled(typingMessage == "" ? true : false)
+                }
+                .frame(height: height)
+                .padding()
+                .padding(.bottom, keyboard.currentHeight == 0.0 ? 0 : keyboard.currentHeight)
+                .background(Color(#colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)))
             }
-            .padding(.bottom, keyboard.currentHeight == 0.0 ? 0 : keyboard.currentHeight)
-            .frame(minHeight: CGFloat(50)).padding()
-        }
-//        .navigationBarTitle(Text(chat.reciever.name), displayMode: .inline)
-        .padding(.bottom, keyboard.currentHeight == 0.0 ? 0 : 40)
-        .edgesIgnoringSafeArea(keyboard.currentHeight == 0.0 ? .leading : .bottom)
-        .onTapGesture {
-            self.endEditing(true)
+            .navigationBarTitle(Text(chat.reciever.name), displayMode: .inline)
+            .padding(.bottom, keyboard.currentHeight == 0.0 ? 0 : 5)
+            .edgesIgnoringSafeArea(keyboard.currentHeight == 0.0 ? .leading : .bottom)
+            .onTapGesture {
+                self.endEditing(true)
+            }
         }
     }
 
@@ -79,10 +100,23 @@ struct ChatView: View {
     
 }
 
+
+struct ViewHeightKey: PreferenceKey {
+    static var defaultValue: CGFloat { 0 }
+    static func reduce(value: inout Value, nextValue: () -> Value) {
+        value = value + nextValue()
+    }
+}
+
+
 struct ChatView_Previews: PreviewProvider {
     static var previews: some View {
         
         ChatView(chat: Chat(reciever: User(id: "1GZDkkomqobMPhpaqUirtClFHLq1", name: "Alison MB", mobileNumber: "+447515509832", imageUrl: "https://firebasestorage.googleapis.com/v0/b/aurora-2086f.appspot.com/o/users%2F1GZDkkomqobMPhpaqUirtClFHLq1.jpeg?alt=media&token=41fd4a78-61e2-44b7-96c0-c22a40da18f2", fcmToken: "", groups: ["eUMO0EvYTXwqSon9Ppze"], favourites: [""]), groupId: "eUMO0EvYTXwqSon9Ppze", lastMessage: "Hey"), currentUser: User(id: "RtJMCaH57QMBXMxb0q5CLUohgzW2", name: "Kris", mobileNumber: "+447432426798", imageUrl: "https://firebasestorage.googleapis.com/v0/b/aurora-2086f.appspot.com/o/users%2FRtJMCaH57QMBXMxb0q5CLUohgzW2.jpeg?alt=media&token=06455850-2c7f-4cce-ad82-55e1c395b906", fcmToken: "", groups: ["eUMO0EvYTXwqSon9Ppze"], favourites: [""]), vm: .init(groupId: "eUMO0EvYTXwqSon9Ppze"))
+        
+        ChatView(chat: Chat(reciever: User(id: "1GZDkkomqobMPhpaqUirtClFHLq1", name: "Alison MB", mobileNumber: "+447515509832", imageUrl: "https://firebasestorage.googleapis.com/v0/b/aurora-2086f.appspot.com/o/users%2F1GZDkkomqobMPhpaqUirtClFHLq1.jpeg?alt=media&token=41fd4a78-61e2-44b7-96c0-c22a40da18f2", fcmToken: "", groups: ["eUMO0EvYTXwqSon9Ppze"], favourites: [""]), groupId: "eUMO0EvYTXwqSon9Ppze", lastMessage: "Hey"), currentUser: User(id: "RtJMCaH57QMBXMxb0q5CLUohgzW2", name: "Kris", mobileNumber: "+447432426798", imageUrl: "https://firebasestorage.googleapis.com/v0/b/aurora-2086f.appspot.com/o/users%2FRtJMCaH57QMBXMxb0q5CLUohgzW2.jpeg?alt=media&token=06455850-2c7f-4cce-ad82-55e1c395b906", fcmToken: "", groups: ["eUMO0EvYTXwqSon9Ppze"], favourites: [""]), vm: .init(groupId: "eUMO0EvYTXwqSon9Ppze"))
+            .colorScheme(.dark)
+        
         
     }
 }
