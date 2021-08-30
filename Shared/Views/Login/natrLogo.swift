@@ -24,7 +24,6 @@ struct natrLogo: View {
 
 
 struct n: View {
-    
     var body: some View {
         HStack (spacing: 4) {
             natrCapsule(height: 90, offsetY: 0, delay: 0)

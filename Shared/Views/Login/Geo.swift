@@ -1,14 +1,14 @@
 //
-//  LoginView.swift
+//  Geo.swift
 //  natr
 //
-//  Created by Kris Reid on 02/08/2021.
+//  Created by Kris Reid on 25/08/2021.
 //
 
 import SwiftUI
-import FirebaseAuth
 
-struct LoginView: View {
+struct Geo: View {
+    
     @ObservedObject var loginVM = LoginViewModel()
     
     private let animation = Animation.easeInOut(duration: 20.0).repeatForever(autoreverses: true)
@@ -39,7 +39,9 @@ struct LoginView: View {
                 .ignoresSafeArea()
                 
                 VStack {
+
                     natrLogo()
+                        .background(Color(#colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)))
                         .offset(x: 0, y: geometry.size.height * 0.4)
                     
                     Spacer()
@@ -61,6 +63,7 @@ struct LoginView: View {
                             .clipShape(RoundedRectangle(cornerRadius: 10))
                     }
                     .padding(.top, 15)
+                    
                     
                     NavigationLink(destination: VerificationView(loginVM: loginVM),isActive: $loginVM.gotoVerify) {
                         
@@ -92,13 +95,13 @@ struct LoginView: View {
             .gesture(DragGesture().onChanged{_ in UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)})
             
         }
+        
     }
+
 }
 
-struct LoginView_Previews: PreviewProvider {
+struct Geo_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView()
-        LoginView()
-            .colorScheme(.dark)
+        Geo()
     }
 }

@@ -14,7 +14,6 @@ struct natrCapsule: View {
     var delay: Double
     
     @State var positionY = -300
-//    @State var positionY = 0
     
     var body: some View {
         Capsule()
@@ -23,8 +22,7 @@ struct natrCapsule: View {
             .offset(y: CGFloat(positionY))
             .animation(.interpolatingSpring(mass: 1, stiffness: 10, damping: 4, initialVelocity: 5).delay(delay))
             .onAppear() {
-                positionY += Int(offsetY + 250)
-//                positionY += Int(offsetY)
+                positionY += Int(offsetY + 300)
             }
     }
 }
