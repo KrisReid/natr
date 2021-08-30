@@ -29,7 +29,6 @@ struct AccountCreationView: View {
                         image?
                             .resizable()
                             .scaledToFill()
-//                            .renderingMode(.original)
                             .frame(width: 200, height: 200)
                             .clipShape(Circle())
                             .shadow(radius: 5)
@@ -38,7 +37,7 @@ struct AccountCreationView: View {
                         Image(systemName: "camera.circle")
                             .resizable()
                             .scaledToFill()
-                            .foregroundColor(colorScheme == .dark ? Color(#colorLiteral(red: 0.1662652493, green: 0.1663002372, blue: 0.1662606299, alpha: 1)) : Color(#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)))
+                            .foregroundColor(Color("Secondary_Background_Color"))
                             .frame(width: 200, height: 200)
                             .clipShape(Circle())
                             .padding()
@@ -53,7 +52,7 @@ struct AccountCreationView: View {
                 TextField("Name", text: $loginVM.name)
                     .keyboardType(.default)
                     .padding()
-                    .background(Color("TextField_Color"))
+                    .background(Color("Secondary_Background_Color"))
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                     .padding()
                 
@@ -64,8 +63,8 @@ struct AccountCreationView: View {
                     Text("Create an account")
                         .frame(width: UIScreen.main.bounds.width - 30,height: 50)
                 }
-                .foregroundColor(Color("Button_Text_Color"))
-                .background(Color("Button_Background_Color"))
+                .foregroundColor(Color("Primary_Foreground_Color"))
+                .background(Color("Primary_Background_Color"))
                 .cornerRadius(10)
                 
             }

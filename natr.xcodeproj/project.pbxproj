@@ -89,8 +89,6 @@
 		024CDA7526CF8A7A0031670E /* natrLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024CDA7326CF8A7A0031670E /* natrLogo.swift */; };
 		024CDA7726CFCB4A0031670E /* natrCapsule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024CDA7626CFCB4A0031670E /* natrCapsule.swift */; };
 		024CDA7826CFCB4A0031670E /* natrCapsule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024CDA7626CFCB4A0031670E /* natrCapsule.swift */; };
-		024CDA9326D6325C0031670E /* Geo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024CDA9226D6325C0031670E /* Geo.swift */; };
-		024CDA9426D6325C0031670E /* Geo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024CDA9226D6325C0031670E /* Geo.swift */; };
 		0286A2E626C6601E007502AD /* Blob.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0286A2E526C6601E007502AD /* Blob.swift */; };
 		0286A2E726C6601E007502AD /* Blob.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0286A2E526C6601E007502AD /* Blob.swift */; };
 /* End PBXBuildFile section */
@@ -161,7 +159,6 @@
 		024CDA7226CE72740031670E /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		024CDA7326CF8A7A0031670E /* natrLogo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = natrLogo.swift; sourceTree = "<group>"; };
 		024CDA7626CFCB4A0031670E /* natrCapsule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = natrCapsule.swift; sourceTree = "<group>"; };
-		024CDA9226D6325C0031670E /* Geo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Geo.swift; sourceTree = "<group>"; };
 		0286A2E526C6601E007502AD /* Blob.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blob.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -337,7 +334,6 @@
 				0286A2E526C6601E007502AD /* Blob.swift */,
 				024CDA7326CF8A7A0031670E /* natrLogo.swift */,
 				024CDA7626CFCB4A0031670E /* natrCapsule.swift */,
-				024CDA9226D6325C0031670E /* Geo.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -576,7 +572,6 @@
 				0220CA6B26BBF6D500B640EF /* MessageListView.swift in Sources */,
 				0220CA8026BBF7A900B640EF /* ChatViewModel.swift in Sources */,
 				0220CA4F26B834FF00B640EF /* AlertView.swift in Sources */,
-				024CDA9326D6325C0031670E /* Geo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -618,7 +613,6 @@
 				0220CA6C26BBF6D500B640EF /* MessageListView.swift in Sources */,
 				0220CA8126BBF7A900B640EF /* ChatViewModel.swift in Sources */,
 				0220CA5026B834FF00B640EF /* AlertView.swift in Sources */,
-				024CDA9426D6325C0031670E /* Geo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

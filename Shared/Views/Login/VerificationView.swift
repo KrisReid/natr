@@ -62,8 +62,8 @@ struct VerificationView: View {
                 TextField("Code", text: $loginVM.code)
                     .keyboardType(.numberPad)
                     .padding()
-                    .foregroundColor(Color("TextField_Text_Color"))
-                    .background(Color("TextField_Color"))
+                    .foregroundColor(Color("Secondary_Foreground_Color"))
+                    .background(Color("Secondary_Background_Color"))
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                     .padding(.horizontal)
                 
@@ -71,8 +71,8 @@ struct VerificationView: View {
                     Text("Verify")
                         .frame(width: UIScreen.main.bounds.width - 30,height: 50)
                 })
-                .foregroundColor(Color("Button_Text_Color"))
-                .background(Color("Button_Background_Color"))
+                .foregroundColor(Color("Primary_Foreground_Color"))
+                .background(Color("Primary_Background_Color"))
                 .cornerRadius(10)
                 .padding()
             }

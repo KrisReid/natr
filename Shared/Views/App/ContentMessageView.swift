@@ -24,5 +24,7 @@ struct ContentMessageView: View {
 struct ContentMessageView_Previews: PreviewProvider {
     static var previews: some View {
         ContentMessageView(contentMessage: "Hi, I am your friend", isCurrentUser: false)
+        ContentMessageView(contentMessage: "Hi, I am your friend", isCurrentUser: false)
+            .colorScheme(.dark)
     }
 }
