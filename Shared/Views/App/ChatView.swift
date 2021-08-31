@@ -20,6 +20,7 @@ struct ChatView: View {
     @ObservedObject var vm: ChatViewModel
     
     var body: some View {
+        
         GeometryReader { geometry in
 
             Color("Secondary_Background_Color")
@@ -48,6 +49,7 @@ struct ChatView: View {
                 Spacer()
 
                 HStack {
+                    
                     List {
                         ZStack(alignment: .leading) {
                             Text(typingMessage).foregroundColor(.clear).padding(6)
@@ -55,19 +57,20 @@ struct ChatView: View {
                                     Color.clear.preference(key: ViewHeightKey.self, value: $0.frame(in: .local).size.height)
                                 })
                             TextEditor(text: $typingMessage)
-                                
                                 .overlay(
-                                    RoundedRectangle(cornerRadius: 6)
+                                    RoundedRectangle(cornerRadius: 10)
                                         .stroke(Color(#colorLiteral(red: 0.8078074455, green: 0.8181154728, blue: 0.8177809715, alpha: 1)), lineWidth: 1)
                                 )
                         }
+                        .frame(maxHeight: 100)
                         .onPreferenceChange(ViewHeightKey.self) { height = $0 }
                         .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                     }
-                    .frame(height: height == 0 ? 50 : height)
-                    
-//                    .frame(minWidth: 0, idealWidth: geometry.size.width * 0.8, maxWidth: 0, minHeight: height, idealHeight: 46, maxHeight: height, alignment: .center)
-                    
+                    .onAppear {
+                        UITableView.appearance().isScrollEnabled = false
+                    }
+                    .frame(minHeight: 44, idealHeight: height == 0 ? 44 : height, maxHeight: 100)
+
                     
                     Button(action: sendMessage) {
                         Image(systemName: "arrow.up.circle.fill")
@@ -80,12 +83,14 @@ struct ChatView: View {
                 }
                 .frame(height: height)
                 .padding()
-                .padding(.bottom, keyboard.currentHeight == 0.0 ? 0 : keyboard.currentHeight)
-                .background(Color(#colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)))
+                .padding(.bottom, keyboard.currentHeight == 0.0 ? 40 : keyboard.currentHeight)
+                .background(Color(#colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)))
+                
             }
             .navigationBarTitle(Text(chat.reciever.name), displayMode: .inline)
-            .padding(.bottom, keyboard.currentHeight == 0.0 ? 0 : 5)
-            .edgesIgnoringSafeArea(keyboard.currentHeight == 0.0 ? .leading : .bottom)
+            .ignoresSafeArea(.all, edges: .bottom)
+            .ignoresSafeArea(.keyboard, edges: .bottom)
+//            .edgesIgnoringSafeArea(keyboard.currentHeight == 0.0 ? .leading : .bottom)
             .onTapGesture {
                 self.endEditing(true)
             }
