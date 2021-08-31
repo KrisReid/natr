@@ -44,7 +44,6 @@ struct ChatView: View {
                     }
                 }
                 .padding(.horizontal)
-//                .padding(.bottom, keyboard.currentHeight == 0.0 ? 0 : 5)
                 
                 Spacer()
 
@@ -64,7 +63,7 @@ struct ChatView: View {
                         }
                         .frame(maxHeight: 100)
                         .onPreferenceChange(ViewHeightKey.self) { height = $0 }
-                        .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+                        .listRowInsets(EdgeInsets(top: 1, leading: 1, bottom: 1, trailing: 1))
                     }
                     .onAppear {
                         UITableView.appearance().isScrollEnabled = false
@@ -84,13 +83,12 @@ struct ChatView: View {
                 .frame(height: height)
                 .padding()
                 .padding(.bottom, keyboard.currentHeight == 0.0 ? 40 : keyboard.currentHeight)
-                .background(Color(#colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)))
+                .background(Color(#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)))
                 
             }
             .navigationBarTitle(Text(chat.reciever.name), displayMode: .inline)
             .ignoresSafeArea(.all, edges: .bottom)
             .ignoresSafeArea(.keyboard, edges: .bottom)
-//            .edgesIgnoringSafeArea(keyboard.currentHeight == 0.0 ? .leading : .bottom)
             .onTapGesture {
                 self.endEditing(true)
             }
