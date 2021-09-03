@@ -14,8 +14,8 @@ struct ChatView: View {
     let chat: Chat
     let currentUser: User
 
-    @State private var height: CGFloat = .zero
-    @State var typingMessage: String = ""
+//    @State private var height: CGFloat = .zero
+//    @State var typingMessage: String = ""
     @ObservedObject private var keyboard = KeyboardResponder()
     @ObservedObject var vm: ChatViewModel
     
@@ -41,62 +41,16 @@ struct ChatView: View {
                         .onAppear(perform: {
                             value.scrollTo(vm.messages.last?.id, anchor: .bottom)
                         })
-                        
-                        //FOR TESTING PURPOSES
-                        Text("Height: \(height)")
-                        Text("Keyboard Height: \(keyboard.currentHeight)")
                     }
                 }
-//                .frame(height:)
                 .padding(.horizontal)
                                 
                 Spacer()
-
-                //Code for adding the comment
-                HStack {
                     
-                    KeyboardTesting()
-                    
-//                    List {
-//                        //This ZStack is growing
-//                        ZStack(alignment: .leading) {
-//                            Text(typingMessage)
-//                                .padding(6)
-//                                .background(GeometryReader {
-//                                    Color.clear.preference(key: ViewHeightKey.self, value: $0.frame(in: .local).size.height)
-//                                })
-//
-//                            TextEditor(text: $typingMessage)
-//                                .overlay(
-//                                    RoundedRectangle(cornerRadius: 10)
-//                                        .stroke(Color(#colorLiteral(red: 0.8078074455, green: 0.8181154728, blue: 0.8177809715, alpha: 1)), lineWidth: 1)
-//                                )
-//                        }
-//                        //Limit the height of the expansion
-//                        .frame(maxHeight: 98.3333)
-//                        .onPreferenceChange(ViewHeightKey.self) { height = $0 }
-//                        .listRowInsets(EdgeInsets(top: 1, leading: 1, bottom: 1, trailing: 1))
-//                    }
-//                    .onAppear {
-//                        UITableView.appearance().isScrollEnabled = false
-//                    }
-//                    .frame(minHeight: 44, idealHeight: height == 0 ? 44 : height, maxHeight: 98.333333)
-                    
-                    Button(action: sendMessage) {
-                        Image(systemName: "arrow.up.circle.fill")
-                            .resizable()
-                            .frame(width: 30, height: 30)
-                            .padding(.leading, 6)
-                            .foregroundColor(typingMessage == "" ? Color.gray : Color(#colorLiteral(red: 0.9741148353, green: 0.5559167266, blue: 0.504724443, alpha: 1)))
-                    }
-                    .disabled(typingMessage == "" ? true : false)
-                }
-                .frame(height: height)
-                .padding()
-                .padding(.bottom, keyboard.currentHeight == 0.0 ? 40 : keyboard.currentHeight)
-                .background(Color(#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)))
+                KeyboardTesting(vm: vm, chat: chat, currentUser: currentUser)
                 
             }
+            .offset(x: 0, y: keyboard.currentHeight == 0.0 ? 0 : -keyboard.currentHeight)
             .navigationBarTitle(Text(chat.reciever.name), displayMode: .inline)
             .ignoresSafeArea(.all, edges: .bottom)
             .ignoresSafeArea(.keyboard, edges: .bottom)
@@ -105,23 +59,7 @@ struct ChatView: View {
             }
         }
     }
-
-    func sendMessage() {
-        vm.postMessage(content: typingMessage, userId: currentUser.id, groupId: chat.groupId, fcmToken: chat.reciever.fcmToken, senderName: currentUser.name)
-        typingMessage = ""
-        hideKeyboard()
-    }
-    
 }
-
-
-struct ViewHeightKey: PreferenceKey {
-    static var defaultValue: CGFloat { 0 }
-    static func reduce(value: inout Value, nextValue: () -> Value) {
-        value = value + nextValue()
-    }
-}
-
 
 
 struct ChatView_Previews: PreviewProvider {

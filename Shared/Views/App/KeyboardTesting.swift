@@ -9,6 +9,10 @@ import SwiftUI
 
 struct KeyboardTesting: View {
     
+    @ObservedObject var vm: ChatViewModel
+    let chat: Chat
+    let currentUser: User
+    
     @State var text = ""
     //Auto updating the textbox height
     @State var containerHeight: CGFloat = 0
@@ -17,40 +21,38 @@ struct KeyboardTesting: View {
         
         HStack {
             VStack {
-                AutoSizingTF(hint: "Enter Message", text: $text, containerHeight: $containerHeight, onEnd: {
+                AutoSizingTF(hint: "...", text: $text, containerHeight: $containerHeight, onEnd: {
                     //Do when keyboard closes
                     UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                 })
-                .padding(.horizontal)
+                .padding(.horizontal, 6)
                 .frame(height: containerHeight <= 120 ? containerHeight : 120)
-                .background(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
+                .background(Color("Tertiary_Foreground_Color"))
                 .cornerRadius(10)
                 .overlay(
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(Color(#colorLiteral(red: 0.8078074455, green: 0.8181154728, blue: 0.8177809715, alpha: 1)), lineWidth: 1)
                 )
-                .padding()
             }
-            .padding(.vertical)
-            .background(Color(#colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1)))
-            
+            .padding(.bottom, 10)
             
             Button(action: sendMessage) {
                 Image(systemName: "arrow.up.circle.fill")
                     .resizable()
                     .frame(width: 30, height: 30)
                     .padding(.leading, 6)
-//                    .foregroundColor(typingMessage == "" ? Color.gray : Color(#colorLiteral(red: 0.9741148353, green: 0.5559167266, blue: 0.504724443, alpha: 1)))
+                    .foregroundColor(text == "" ? Color.gray : Color(#colorLiteral(red: 0.9741148353, green: 0.5559167266, blue: 0.504724443, alpha: 1)))
             }
-//            .disabled(typingMessage == "" ? true : false)
+            .disabled(text == "" ? true : false)
 
         }
-            
+        .padding()
+        .background(Color("Tertiary_Background_Color"))
     }
     
     func sendMessage() {
-        vm.postMessage(content: typingMessage, userId: currentUser.id, groupId: chat.groupId, fcmToken: chat.reciever.fcmToken, senderName: currentUser.name)
-        typingMessage = ""
+        vm.postMessage(content: text, userId: currentUser.id, groupId: chat.groupId, fcmToken: chat.reciever.fcmToken, senderName: currentUser.name)
+        text = ""
         hideKeyboard()
     }
     
@@ -74,7 +76,7 @@ struct AutoSizingTF: UIViewRepresentable {
         textView.text = hint
         textView.textColor = .darkGray
         textView.backgroundColor = .clear
-        textView.font = .systemFont(ofSize: 20)
+        textView.font = .systemFont(ofSize: 16)
         
         //setting the delegate
         textView.delegate = context.coordinator
@@ -145,6 +147,11 @@ struct AutoSizingTF: UIViewRepresentable {
 
 struct KeyboardTesting_Previews: PreviewProvider {
     static var previews: some View {
-        KeyboardTesting()
+        
+        KeyboardTesting(vm: .init(groupId: "eUMO0EvYTXwqSon9Ppze"), chat: Chat(reciever: User(id: "1GZDkkomqobMPhpaqUirtClFHLq1", name: "Alison MB", mobileNumber: "+447515509832", imageUrl: "https://firebasestorage.googleapis.com/v0/b/aurora-2086f.appspot.com/o/users%2F1GZDkkomqobMPhpaqUirtClFHLq1.jpeg?alt=media&token=41fd4a78-61e2-44b7-96c0-c22a40da18f2", fcmToken: "", groups: ["eUMO0EvYTXwqSon9Ppze"], favourites: [""]), groupId: "eUMO0EvYTXwqSon9Ppze", lastMessage: "Hey"), currentUser: User(id: "RtJMCaH57QMBXMxb0q5CLUohgzW2", name: "Kris", mobileNumber: "+447432426798", imageUrl: "https://firebasestorage.googleapis.com/v0/b/aurora-2086f.appspot.com/o/users%2FRtJMCaH57QMBXMxb0q5CLUohgzW2.jpeg?alt=media&token=06455850-2c7f-4cce-ad82-55e1c395b906", fcmToken: "", groups: ["eUMO0EvYTXwqSon9Ppze"], favourites: [""]))
+        
+        KeyboardTesting(vm: .init(groupId: "eUMO0EvYTXwqSon9Ppze"), chat: Chat(reciever: User(id: "1GZDkkomqobMPhpaqUirtClFHLq1", name: "Alison MB", mobileNumber: "+447515509832", imageUrl: "https://firebasestorage.googleapis.com/v0/b/aurora-2086f.appspot.com/o/users%2F1GZDkkomqobMPhpaqUirtClFHLq1.jpeg?alt=media&token=41fd4a78-61e2-44b7-96c0-c22a40da18f2", fcmToken: "", groups: ["eUMO0EvYTXwqSon9Ppze"], favourites: [""]), groupId: "eUMO0EvYTXwqSon9Ppze", lastMessage: "Hey"), currentUser: User(id: "RtJMCaH57QMBXMxb0q5CLUohgzW2", name: "Kris", mobileNumber: "+447432426798", imageUrl: "https://firebasestorage.googleapis.com/v0/b/aurora-2086f.appspot.com/o/users%2FRtJMCaH57QMBXMxb0q5CLUohgzW2.jpeg?alt=media&token=06455850-2c7f-4cce-ad82-55e1c395b906", fcmToken: "", groups: ["eUMO0EvYTXwqSon9Ppze"], favourites: [""]))
+            .colorScheme(.dark)
+
     }
 }
