@@ -41,35 +41,46 @@ struct ChatView: View {
                         .onAppear(perform: {
                             value.scrollTo(vm.messages.last?.id, anchor: .bottom)
                         })
+                        
+                        //FOR TESTING PURPOSES
+                        Text("Height: \(height)")
+                        Text("Keyboard Height: \(keyboard.currentHeight)")
                     }
                 }
+//                .frame(height:)
                 .padding(.horizontal)
-                
+                                
                 Spacer()
 
+                //Code for adding the comment
                 HStack {
                     
-                    List {
-                        ZStack(alignment: .leading) {
-                            Text(typingMessage).foregroundColor(.clear).padding(6)
-                                .background(GeometryReader {
-                                    Color.clear.preference(key: ViewHeightKey.self, value: $0.frame(in: .local).size.height)
-                                })
-                            TextEditor(text: $typingMessage)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .stroke(Color(#colorLiteral(red: 0.8078074455, green: 0.8181154728, blue: 0.8177809715, alpha: 1)), lineWidth: 1)
-                                )
-                        }
-                        .frame(maxHeight: 100)
-                        .onPreferenceChange(ViewHeightKey.self) { height = $0 }
-                        .listRowInsets(EdgeInsets(top: 1, leading: 1, bottom: 1, trailing: 1))
-                    }
-                    .onAppear {
-                        UITableView.appearance().isScrollEnabled = false
-                    }
-                    .frame(minHeight: 44, idealHeight: height == 0 ? 44 : height, maxHeight: 100)
-
+                    KeyboardTesting()
+                    
+//                    List {
+//                        //This ZStack is growing
+//                        ZStack(alignment: .leading) {
+//                            Text(typingMessage)
+//                                .padding(6)
+//                                .background(GeometryReader {
+//                                    Color.clear.preference(key: ViewHeightKey.self, value: $0.frame(in: .local).size.height)
+//                                })
+//
+//                            TextEditor(text: $typingMessage)
+//                                .overlay(
+//                                    RoundedRectangle(cornerRadius: 10)
+//                                        .stroke(Color(#colorLiteral(red: 0.8078074455, green: 0.8181154728, blue: 0.8177809715, alpha: 1)), lineWidth: 1)
+//                                )
+//                        }
+//                        //Limit the height of the expansion
+//                        .frame(maxHeight: 98.3333)
+//                        .onPreferenceChange(ViewHeightKey.self) { height = $0 }
+//                        .listRowInsets(EdgeInsets(top: 1, leading: 1, bottom: 1, trailing: 1))
+//                    }
+//                    .onAppear {
+//                        UITableView.appearance().isScrollEnabled = false
+//                    }
+//                    .frame(minHeight: 44, idealHeight: height == 0 ? 44 : height, maxHeight: 98.333333)
                     
                     Button(action: sendMessage) {
                         Image(systemName: "arrow.up.circle.fill")
@@ -110,6 +121,7 @@ struct ViewHeightKey: PreferenceKey {
         value = value + nextValue()
     }
 }
+
 
 
 struct ChatView_Previews: PreviewProvider {
