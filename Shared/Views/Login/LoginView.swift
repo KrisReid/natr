@@ -14,12 +14,6 @@ struct LoginView: View {
     private let animation = Animation.easeInOut(duration: 20.0).repeatForever(autoreverses: true)
     @State private var change = false
     
-//    @State private var onOff = true
-//
-//    init() {
-//        onOff.toggle()
-//    }
-    
     var body: some View {
         
         GeometryReader { geometry in
@@ -45,7 +39,6 @@ struct LoginView: View {
                 .ignoresSafeArea()
                 
                 VStack {
-//                    natrLogo(onOff: onOff)
                     natrLogo()
                         .offset(x: 0, y: geometry.size.height * 0.4)
                     Spacer()
@@ -72,8 +65,6 @@ struct LoginView: View {
                         
                         Button(action: {
                             loginVM.sendCode()
-                            //RESET THE LOGO
-//                            onOff.toggle()
                         }, label: {
                             Text("Continue")
                                 .frame(width: UIScreen.main.bounds.width - 30,height: 50)
