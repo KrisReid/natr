@@ -13,7 +13,8 @@ struct KeyboardTesting: View {
     let chat: Chat
     let currentUser: User
     
-    @State var text = ""
+    
+    @State var text: String = ""
     //Auto updating the textbox height
     @State var containerHeight: CGFloat = 0
     
@@ -44,7 +45,6 @@ struct KeyboardTesting: View {
                     .foregroundColor(text == "" ? Color.gray : Color(#colorLiteral(red: 0.9741148353, green: 0.5559167266, blue: 0.504724443, alpha: 1)))
             }
             .disabled(text == "" ? true : false)
-
         }
         .padding()
         .background(Color("Tertiary_Background_Color"))
@@ -80,19 +80,6 @@ struct AutoSizingTF: UIViewRepresentable {
         
         //setting the delegate
         textView.delegate = context.coordinator
-        
-        //Input accessory view
-        let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
-        toolBar.barStyle = .default
-        
-        let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        
-        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: context.coordinator, action: #selector(context.coordinator.closeKeyBoard))
-        
-        toolBar.items = [spacer, doneButton]
-        toolBar.sizeToFit()
-        
-        textView.inputAccessoryView = toolBar
         
         return textView
     }
@@ -136,10 +123,18 @@ struct AutoSizingTF: UIViewRepresentable {
         
         //if textbox is empty then use hint
         func textViewDidEndEditing(_ textView: UITextView) {
+            
+            //clear the parent text field first
+            if parent.text == "" {
+                textView.text = ""
+                parent.containerHeight = 0
+            }
+            
             if textView.text == "" {
                 textView.text = parent.hint
-                textView.textColor = .gray
+                textView.textColor = .darkGray
             }
+            
         }
     }
 }

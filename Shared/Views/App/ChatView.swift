@@ -14,8 +14,6 @@ struct ChatView: View {
     let chat: Chat
     let currentUser: User
 
-//    @State private var height: CGFloat = .zero
-//    @State var typingMessage: String = ""
     @ObservedObject private var keyboard = KeyboardResponder()
     @ObservedObject var vm: ChatViewModel
     
@@ -59,6 +57,7 @@ struct ChatView: View {
             }
         }
     }
+    
 }
 
 
