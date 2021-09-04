@@ -45,7 +45,7 @@ struct ChatView: View {
                                 
                 Spacer()
                     
-                KeyboardTesting(vm: vm, chat: chat, currentUser: currentUser)
+                TextBox(vm: vm, chat: chat, currentUser: currentUser)
                 
             }
             .offset(x: 0, y: keyboard.currentHeight == 0.0 ? 0 : -keyboard.currentHeight)
