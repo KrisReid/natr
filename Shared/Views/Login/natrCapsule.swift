@@ -22,8 +22,10 @@ struct natrCapsule: View {
             .offset(y: positionY)
             .animation(.interpolatingSpring(mass: 1, stiffness: 10, damping: 4, initialVelocity: 5).delay(delay))
             .onAppear() {
-                //Maybe add a - if positionY = -300 then do this on appear, else leave it alone
-                positionY += offsetY - positionY
+                if positionY == -300 {
+                    positionY += offsetY - positionY
+                }
+//                positionY += offsetY - positionY
             }
     }
 }
