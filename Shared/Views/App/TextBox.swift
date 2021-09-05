@@ -53,7 +53,6 @@ struct TextBox: View {
         text = ""
         hideKeyboard()
     }
-    
 }
 
 struct AutoSizingTF: UIViewRepresentable {
@@ -132,8 +131,8 @@ struct AutoSizingTF: UIViewRepresentable {
                 textView.text = parent.hint
                 textView.textColor = .darkGray
             }
-            
         }
+        
     }
 }
 

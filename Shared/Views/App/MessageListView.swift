@@ -18,7 +18,6 @@ struct MessageListView: View {
     
         List {
             ForEach(self.chats, id: \.self) { chat in
-
                 NavigationLink (
                     destination: ChatView(chat: chat, currentUser: self.currentUser, vm: .init(groupId: chat.groupId)),
                     label: {
@@ -26,7 +25,6 @@ struct MessageListView: View {
                             .foregroundColor(Color(.label))
                     }
                 )
-
             }
             .listRowBackground(Color("Primary_Background_Color"))
         }
