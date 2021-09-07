@@ -39,12 +39,13 @@ struct MessagesView: View {
                     MessageListView(chats: vm.chats, currentUser: vm.currentUser)
                     
                     //Testing
-//                    NavigationLink(
+                    NavigationLink(
 //                        destination: ContactsView(),
-//                        label: {
-//                            Text("Contacts")
-//                        }
-//                    )
+                        destination: HashExample(),
+                        label: {
+                            Text("Contacts")
+                        }
+                    )
 
                 }
             }
