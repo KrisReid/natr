@@ -12,12 +12,12 @@ import CommonCrypto
 class HashingPOCHelper: ObservableObject {
     
     @Published var hash: String = ""
+    @Published var decryptedData: String = ""
     
     let iv = AES.GCM.Nonce()
     var encryptedData: Data!
     var key = SymmetricKey(size: .bits128)
-    var decryptedData: String!
-    
+    @Published var content: Content?
     
     
     //Create a hash from a string
@@ -27,19 +27,26 @@ class HashingPOCHelper: ObservableObject {
         hash = digest.compactMap { String(format: "%02x", $0) }.joined()
     }
     
+    
     //Encrypt Data
-    func encryptData(encryptString: String) {
+    func encryptData(encryptString: String) -> String {
         do {
+            
+            print("Key: \(key)")
             let message = encryptString.data(using: .utf8)!
             encryptedData = try AES.GCM.seal(message, using: key, nonce: iv).combined
-            print(encryptedData!)
-            /////
-            ////
-            ///
-            //
-            decryptData(decryptToData: encryptedData, key: key)
+            
+            //SAVE THE DATA FOR LATER USE
+            //WOULD ULTIMATELY NEED TO STORE THIS IN THE DATABASE OR LOCALLY? (STORING TOGETHER IN THE DB IS DUMB?)
+            //IS THE KEY UNIQUE OR SHARED ???
+            content = Content(contentMessage: encryptedData, contentKey: key)
+            return encryptedData.base64EncodedString()
+            
+//            decryptData(decryptToData: encryptedData, key: key)
+            
         } catch {
             print("Error")
+            return "Error"
         }
     }
     

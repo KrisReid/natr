@@ -10,6 +10,7 @@ import SwiftUI
 import FirebaseAuth
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import CryptoKit
 
 
 class MessagesViewModel: ObservableObject {

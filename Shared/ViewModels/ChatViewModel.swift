@@ -40,6 +40,10 @@ class ChatViewModel: ObservableObject {
     func postMessage(content: String, userId: String, groupId: String, fcmToken: String, senderName: String) {
         do {
             
+//            let encryption = HashingPOCHelper()
+//            let encryptedContent = encryption.encryptData(encryptString: content)
+            
+            
             let newMessageRef = Firestore.firestore().collection("groups").document(groupId).collection("messages").document()
             let message = Message(id: newMessageRef.documentID, content: content, userId: userId, timeDate: Timestamp(date: Date()))
             try newMessageRef.setData(from: message, completion: { (err) in

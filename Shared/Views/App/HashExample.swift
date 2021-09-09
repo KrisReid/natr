@@ -11,14 +11,12 @@ struct HashExample: View {
     
     @State var name: String = ""
     @ObservedObject var vm = HashingPOCHelper()
-//    @State var test = ""
     
     var body: some View {
         VStack (alignment: .leading) {
             TextField("Enter username...", text: $name)
                 .padding()
                 .border(Color.black)
-            Text("Your name is: \(name)")
             
             
             Button(action: {
@@ -29,10 +27,11 @@ struct HashExample: View {
                     .resizable()
                     .frame(width: 30, height: 30)
                     .padding(.leading, 6)
-                Text("Hash me Baby !!!!!!!")
+                Text("Encrypt me Baby !!!!!!!")
             }
             
-            Text("HASH: \(vm.hash)")
+//            Text("HASH: \(vm.hash)")
+            Text(vm.decryptedData)
             
             
         }

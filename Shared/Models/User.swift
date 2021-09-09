@@ -14,6 +14,7 @@ struct User: Identifiable, Codable, Hashable {
     var mobileNumber: String
     var imageUrl: String
     var fcmToken: String
+//    var publicToken: String
     var groups: [String]
     var favourites: [String]
 
