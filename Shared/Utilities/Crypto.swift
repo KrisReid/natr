@@ -13,21 +13,42 @@ import FirebaseFirestoreSwift
 
 class Crypto: ObservableObject {
     
-    func generateCryptoKeys() {
-        // generate key pair
+    func exportPublicKey(_ publicKey: Curve25519.KeyAgreement.PublicKey) -> String {
+        let rawPublicKey = publicKey.rawRepresentation
+        let publicKeyBase64 = rawPublicKey.base64EncodedString()
+        let percentEncodedPublicKey = publicKeyBase64.addingPercentEncoding(withAllowedCharacters: .alphanumerics)!
+        return percentEncodedPublicKey
+        
+        //TEST THE CONVERSION BACK WORKS
+        
+//        do {
+//            let a = try importPublicKey(percentEncodedPublicKey)
+//            print("1111111111")
+//            print(a)
+//        } catch {
+//            print("The file could not be loaded")
+//        }
+        
+    }
+    
+    
+    func importPublicKey(_ publicKey: String) throws -> Curve25519.KeyAgreement.PublicKey {
+        let publicKeyBase64 = publicKey.removingPercentEncoding!
+        let rawPubliceKey = Data(base64Encoded: publicKeyBase64)!
+        return try Curve25519.KeyAgreement.PublicKey(rawRepresentation: rawPubliceKey)
+    }
+    
+    
+    
+    func generateCryptoKeys() -> String {
         let privateKey = Curve25519.KeyAgreement.PrivateKey()
         let publicKey = privateKey.publicKey
         
-        //Store the Proviate Key
+        //Store the Private Key (On KeyChain)
         
-        //Store the Public Key
-        guard let uid = Auth.auth().currentUser?.uid else { return }
-        Firestore.firestore().collection("users").whereField("id", isEqualTo: uid).addSnapshotListener { (documentSnapshot, error) in
-            guard let documents = documentSnapshot?.documents else { return }
-            self.users = documents.compactMap { (queryDocumentSnapshot) -> User? in
-                return try? queryDocumentSnapshot.data(as: User.self)
-            }
-        }
+        
+        //Store the Public Key in Firebase
+        return exportPublicKey(publicKey)
         
     }
     

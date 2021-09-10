@@ -17,7 +17,7 @@ class MessagesViewModel: ObservableObject {
     
     @Published var groups = [Group]()
     @Published var chats = [Chat]()
-    @Published var currentUser = User(id: "", name: "", mobileNumber: "", imageUrl: "", fcmToken: "", groups: [], favourites: [])
+    @Published var currentUser = User(id: "", name: "", mobileNumber: "", imageUrl: "", fcmToken: "", publicToken: "", groups: [], favourites: [])
     @Published var favourites = [User]()
 
     @Published var searchTerm: String = ""
@@ -34,7 +34,7 @@ class MessagesViewModel: ObservableObject {
         Firestore.firestore().collection("users").document(uid).addSnapshotListener { documentSnapshot, error in
             guard let document = documentSnapshot else { return }
 
-            try? self.currentUser = document.data(as: User.self) ?? User(id: "", name: "", mobileNumber: "", imageUrl: "", fcmToken: "", groups: [], favourites: [])
+            try? self.currentUser = document.data(as: User.self) ?? User(id: "", name: "", mobileNumber: "", imageUrl: "", fcmToken: "", publicToken: "", groups: [], favourites: [])
             
             //fetch usersfavourites
             Firestore.firestore().collection("users").whereField("id", in: self.currentUser.favourites).addSnapshotListener { (querySnapshot, error) in
@@ -104,11 +104,12 @@ class MessagesViewModel: ObservableObject {
                 let recieverName = data["name"] as? String ?? ""
                 let recieverMobileNumber = data["mobileNumber"] as? String ?? ""
                 let recieverFcmToken = data["fcmToken"] as? String ?? ""
+                let publicToken = data["publicToken"] as? String ?? ""
                 let recieverImageUrl = data["imageUrl"] as? String ?? ""
                 let recieverGroups = data["groups"] as? [String] ?? [""]
                 let revieverFavourites = data["favourites"] as? [String] ?? [""]
 
-                return Chat(reciever: User(id: recieverId, name: recieverName, mobileNumber: recieverMobileNumber, imageUrl: recieverImageUrl, fcmToken: recieverFcmToken, groups: recieverGroups, favourites: revieverFavourites), groupId: groupId, lastMessage: lastMessage)
+                return Chat(reciever: User(id: recieverId, name: recieverName, mobileNumber: recieverMobileNumber, imageUrl: recieverImageUrl, fcmToken: recieverFcmToken, publicToken: publicToken, groups: recieverGroups, favourites: revieverFavourites), groupId: groupId, lastMessage: lastMessage)
 
             }))
             

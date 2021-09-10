@@ -31,6 +31,8 @@ class LoginViewModel: ObservableObject {
 
     // User Logged in Status
     @AppStorage("log_Status") var status = false
+    
+    let crypto = Crypto()
 
     func getCountryCode() -> String {
         let countryCode = Locale.current.regionCode ?? ""
@@ -119,10 +121,12 @@ class LoginViewModel: ObservableObject {
 
 
     func CreateUser() {
-
         if self.name != "" {
 
             self.loading = true
+            
+            //Generate some crypto tokens
+            let publicToken = crypto.generateCryptoKeys()
 
             let db = Firestore.firestore().collection("users")
             let storage = Storage.storage().reference().child("users")
@@ -140,13 +144,17 @@ class LoginViewModel: ObservableObject {
                             if let url = url, error == nil {
                                 let userProfileImage = url.absoluteString
                                 
+//                                let userObject: User = User(id: uid, name: self.name, mobileNumber: "+\(self.getCountryCode())\(self.mobileNumber)", imageUrl: userProfileImage, fcmToken: "", publicToken: "", groups: [], favourites: [])
+                                
                                 let user: [String:Any] = [
                                     "id" : uid,
                                     "name" : self.name,
                                     "mobileNumber" : "+\(self.getCountryCode())\(self.mobileNumber)",
                                     "imageUrl" : userProfileImage,
                                     "fcmToken" : "",
-                                    "groups" : []
+                                    "publicToken" : publicToken,
+                                    "groups" : [],
+                                    "favourites" : []
                                 ]
 
                                 db.document(uid).setData(user) { err in

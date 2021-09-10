@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CryptoKit
 
 
 struct User: Identifiable, Codable, Hashable {
@@ -14,16 +15,17 @@ struct User: Identifiable, Codable, Hashable {
     var mobileNumber: String
     var imageUrl: String
     var fcmToken: String
-//    var publicToken: String
+    var publicToken: String
     var groups: [String]
     var favourites: [String]
 
-    init(id: String, name: String, mobileNumber: String, imageUrl: String, fcmToken: String, groups: [String], favourites: [String]) {
+    init(id: String, name: String, mobileNumber: String, imageUrl: String, fcmToken: String, publicToken: String, groups: [String], favourites: [String]) {
         self.id = id
         self.name = name
         self.mobileNumber = mobileNumber
         self.imageUrl = imageUrl
         self.fcmToken = fcmToken
+        self.publicToken = publicToken
         self.groups = groups
         self.favourites = favourites
     }
