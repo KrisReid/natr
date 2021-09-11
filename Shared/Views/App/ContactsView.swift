@@ -33,7 +33,7 @@ struct ContactRow: View {
         VStack {
             Text("\(contact.firstName) \(contact.lastName)")
                 .foregroundColor(.primary)
-            Text("\(contact.phoneNumber?.stringValue ?? "0000")")
+            Text("\(contact.mobileNumber)")
                 .foregroundColor(.secondary)
         }
     }

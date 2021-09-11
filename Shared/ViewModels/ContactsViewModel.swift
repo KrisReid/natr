@@ -8,15 +8,19 @@
 import Foundation
 import Contacts
 import FirebaseAuth
+import FirebaseFirestore
 
 //WILL PROBABLY END UP IN MESSAGESVIEWMODEL
+
 
 
 class ContactsViewModel: ObservableObject {
     
     @Published var contacts = [ContactInfo.init(firstName: "", lastName: "", phoneNumber: nil, mobileNumber: "")]
+//    @Published var tempMobileArray = [ContactInfo.init(firstName: "", lastName: "", phoneNumber: nil, mobileNumber: "")]
+    @Published var tempMobileArray = []
+    @Published var mobileArray = []
     
-//    var storedContact = ["07432426798", "+447515509832", "07432426788"]
     
     func fetchingContacts() -> [ContactInfo] {
         var contacts = [ContactInfo]()
@@ -35,8 +39,11 @@ class ContactsViewModel: ObservableObject {
                     mobileNumber.insert(contentsOf: "+44", at: mobileNumber.startIndex)
                 }
                 
-                //Save the contact in the contact array
-                contacts.append(ContactInfo(firstName: contact.givenName, lastName: contact.familyName, phoneNumber: contact.phoneNumbers.first?.value, mobileNumber: mobileNumber))
+                //Remove non +44 numbers
+                if mobileNumber.starts(with: "+44") {
+                    //Save the contact in the contact array
+                    contacts.append(ContactInfo(firstName: contact.givenName, lastName: contact.familyName, phoneNumber: contact.phoneNumbers.first?.value, mobileNumber: mobileNumber))
+                }
 
             })
         } catch let error {
@@ -45,22 +52,40 @@ class ContactsViewModel: ObservableObject {
         contacts = contacts.sorted {
             $0.firstName < $1.firstName
         }
-        print("222222222222")
-        checkCOntacts(contacts: contacts)
-        print("333333333333")
+        checkContacts(contacts: contacts)
         
         return contacts
     }
     
-    func checkCOntacts(contacts: [ContactInfo]) {
-        
-//        Auth.auth().
-        
+    func checkContacts(contacts: [ContactInfo]) {
         for contact in contacts {
-            print(contact)
+//            print("\(contact.firstName): \(contact.mobileNumber)")
+            tempMobileArray.append(contact.mobileNumber)
         }
+        doStuff()
         
     }
+    
+   
+    
+    func doStuff() {
+        for mobile in tempMobileArray {
+            Firestore.firestore().collection("users").whereField("mobileNumber", isEqualTo: mobile).getDocuments { documentSnapshot, error in
+                
+                guard let documents = documentSnapshot?.documents else { return }
+                
+                self.mobileArray.append(contentsOf: documents.map({ (queryDocumentSnapshot) -> Mobile in
+                    let data = queryDocumentSnapshot.data()
+                    let mobileNumber = data["mobileNumber"] as? String ?? ""
+                    print("mobileNumber: \(mobileNumber)")
+                    return Mobile(mobileNumber: mobileNumber)
+                }))
+            }
+        }
+    }
+    
+    
+    
     
     
     func getContacts() {

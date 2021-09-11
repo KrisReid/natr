@@ -28,30 +28,30 @@ struct MessagesView: View {
             ZStack (alignment: .topLeading) {
                 Color("Primary_Background_Color")
                     .ignoresSafeArea()
+                
+
                 VStack (alignment: .leading, spacing: 20) {
                     
-                    if vm.favourites != [] {
-                        FavouriteCarouselView(favourites: vm.favourites)
-                            .padding(.top, 10)
-                    }
+                    FavouriteCarouselView(favourites: vm.favourites)
+                        .padding(.top, 10)
                     
                     SearchView(searchTerm: self.$vm.searchTerm)
                         .padding()
-                                        
-                    if vm.chats != [] {
-                        MessageListView(chats: vm.chats, currentUser: vm.currentUser)
-                    }
-
+                    
+                    MessageListView(chats: vm.chats, currentUser: vm.currentUser)
+                    
                     //Testing
                     NavigationLink(
-//                        destination: ContactsView(),
-                        destination: HashExample(),
+                        destination: ContactsView(),
+//                        destination: HashExample(),
                         label: {
                             Text("Contacts")
                         }
                     )
 
+
                 }
+                
             }
             .navigationBarTitle("Messages")
         }

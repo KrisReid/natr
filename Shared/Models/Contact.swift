@@ -15,3 +15,8 @@ struct ContactInfo : Identifiable, Hashable {
     var phoneNumber: CNPhoneNumber?
     var mobileNumber: String
 }
+
+
+struct Mobile: Codable, Hashable {
+    var mobileNumber: String
+}
