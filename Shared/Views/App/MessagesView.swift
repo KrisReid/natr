@@ -30,14 +30,18 @@ struct MessagesView: View {
                     .ignoresSafeArea()
                 VStack (alignment: .leading, spacing: 20) {
                     
+                    if vm.favourites != [] {
+                        FavouriteCarouselView(favourites: vm.favourites)
+                            .padding(.top, 10)
+                    }
+                    
                     SearchView(searchTerm: self.$vm.searchTerm)
                         .padding()
-                    
-                    FavouriteCarouselView(favourites: vm.favourites)
                                         
-                    //Figure out the correct data models we want to apply within the app
-                    MessageListView(chats: vm.chats, currentUser: vm.currentUser)
-                    
+                    if vm.chats != [] {
+                        MessageListView(chats: vm.chats, currentUser: vm.currentUser)
+                    }
+
                     //Testing
                     NavigationLink(
 //                        destination: ContactsView(),

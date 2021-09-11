@@ -28,13 +28,6 @@ struct FavouriteCarouselView: View {
     
     var body: some View {
         VStack (spacing: 0) {
-            HStack {
-                Text("Favourites")
-                    .font(.system(size: 16, weight: .light))
-                    .foregroundColor(Color(#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)))
-                    .padding(.horizontal)
-                Spacer()
-            }
             ScrollView(.horizontal) {
                 HStack (spacing: 40) {
 //                    ForEach(0..<20, id: \.self)  { num in

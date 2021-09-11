@@ -144,8 +144,6 @@ class LoginViewModel: ObservableObject {
                             if let url = url, error == nil {
                                 let userProfileImage = url.absoluteString
                                 
-//                                let userObject: User = User(id: uid, name: self.name, mobileNumber: "+\(self.getCountryCode())\(self.mobileNumber)", imageUrl: userProfileImage, fcmToken: "", publicToken: "", groups: [], favourites: [])
-                                
                                 let user: [String:Any] = [
                                     "id" : uid,
                                     "name" : self.name,
@@ -153,8 +151,8 @@ class LoginViewModel: ObservableObject {
                                     "imageUrl" : userProfileImage,
                                     "fcmToken" : "",
                                     "publicToken" : publicToken,
-                                    "groups" : [],
-                                    "favourites" : []
+                                    "groups" : [""],
+                                    "favourites" : [""]
                                 ]
 
                                 db.document(uid).setData(user) { err in

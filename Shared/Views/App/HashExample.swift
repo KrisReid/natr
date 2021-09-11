@@ -27,11 +27,11 @@ struct HashExample: View {
                     .resizable()
                     .frame(width: 30, height: 30)
                     .padding(.leading, 6)
-                Text("Encrypt me Baby !!!!!!!")
+                Text("Hash me Baby !!!!!!!")
             }
             
 //            Text("HASH: \(vm.hash)")
-            Text(vm.decryptedData)
+            
             
             
         }
