@@ -18,7 +18,7 @@ struct MessagesView: View {
         UITableViewCell.appearance().selectionStyle = .none
     }
     
-    
+    @State private var showModal:Bool = false
     @ObservedObject var vm = MessagesViewModel()
     
     
@@ -39,23 +39,26 @@ struct MessagesView: View {
                         .padding()
                     
                     MessageListView(chats: vm.chats, currentUser: vm.currentUser)
-                    
-                    //Testing
-                    NavigationLink(
-                        destination: ContactsView(),
-//                        destination: HashExample(),
-                        label: {
-                            Text("Contacts")
-                        }
-                    )
-
 
                 }
                 
             }
             .navigationBarTitle("Messages")
+            .navigationBarItems(trailing: Button(action: showContactList, label: {
+                Image(systemName: "plus")
+                    .foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
+                    .font(.system(size: 26, weight: .light))
+            }))
+            .sheet(isPresented: $showModal) {
+                ContactsView(isPresented: self.$showModal)
+            }
         }
     }
+    
+    private func showContactList() {
+        self.showModal = true
+    }
+    
 }
 
 struct MessagesView_Previews: PreviewProvider {
