@@ -10,105 +10,11 @@ import Contacts
 import FirebaseAuth
 import FirebaseFirestore
 
-//WILL PROBABLY END UP IN MESSAGESVIEWMODEL
-
-
 
 class ContactsViewModel: ObservableObject {
     
     @Published var contacts = [ContactInfo.init(firstName: "", lastName: "", mobileNumber: "")]
     @Published var mobileArray = [ContactInfo.init(firstName: "", lastName: "", mobileNumber: "")]
-    
-    
-    func kristest() {
-        print(mobileArray)
-    }
-    
-    
-    func fetchingContacts() -> [ContactInfo] {
-        var contacts = [ContactInfo]()
-        let keys = [CNContactGivenNameKey, CNContactFamilyNameKey, CNContactPhoneNumbersKey]
-        let request = CNContactFetchRequest(keysToFetch: keys as [CNKeyDescriptor])
-        do {
-            try CNContactStore().enumerateContacts(with: request, usingBlock: { (contact, stopPointer) in
-                
-                //Remove any spaces in the contact number
-                let mobile = contact.phoneNumbers.first?.value.stringValue ?? ""
-                var mobileNumber = String(mobile.filter { !" \n\t\r".contains($0) })
-                
-                //Modify anything starting with 0 to be +44 instead
-                if mobileNumber.prefix(1) == "0" {
-                    mobileNumber.remove(at: mobileNumber.startIndex)
-                    mobileNumber.insert(contentsOf: "+44", at: mobileNumber.startIndex)
-                }
-                
-                //Remove non +44 numbers
-                if mobileNumber.starts(with: "+44") {
-                    //Save the contact in the contact array
-                    contacts.append(ContactInfo(firstName: contact.givenName, lastName: contact.familyName, mobileNumber: mobileNumber))
-                }
-
-            })
-        } catch let error {
-            print("Failed", error)
-        }
-        contacts = contacts.sorted {
-            $0.firstName < $1.firstName
-        }
-        checkContacts(contacts: contacts)
-        
-        return contacts
-    }
-    
-    func checkContacts(contacts: [ContactInfo]) {
-        
-        self.mobileArray.removeAll()
-        
-        for contact in contacts {
-            Firestore.firestore().collection("users").whereField("mobileNumber", isEqualTo: contact.mobileNumber).getDocuments { documentSnapshot, error in
-                
-                guard let documents = documentSnapshot?.documents else { return }
-                documents.map { QueryDocumentSnapshot in
-                    let data = QueryDocumentSnapshot.data()
-                    let mobileNumber = data["mobileNumber"] as? String ?? ""
-                    let firstName = data["name"] as? String ?? ""
-                    self.mobileArray.append(ContactInfo(firstName: firstName, lastName: "", mobileNumber: mobileNumber))
-                }
-            }
-        }
-    }
-    
-   
-    
-//    func doStuff() {
-//        for mobile in tempMobileArray {
-//            Firestore.firestore().collection("users").whereField("mobileNumber", isEqualTo: mobile).getDocuments { documentSnapshot, error in
-//
-//                guard let documents = documentSnapshot?.documents else { return }
-//
-////                self.mobileArray.append(contentsOf: documents.map({ (queryDocumentSnapshot) -> Mobile in
-//                self.mobileArray.append(contentsOf: documents.map({ (queryDocumentSnapshot) -> ContactInfo in
-//                    let data = queryDocumentSnapshot.data()
-//                    let mobileNumber = data["mobileNumber"] as? String ?? ""
-//                    let firstName = data["firstName"] as? String ?? ""
-//                    let lastName = data["lastName"] as? String ?? ""
-//                    print(mobileNumber)
-//
-//                    print(self.mobileArray)
-////                    return Mobile(mobileNumber: mobileNumber)
-//                    return ContactInfo(firstName: firstName, lastName: lastName, mobileNumber: mobileNumber)
-//                }))
-//            }
-//        }
-//    }
-    
-    
-    
-    func getContacts() {
-        DispatchQueue.main.async {
-            self.contacts = self.fetchingContacts()
-        }
-    }
 
     
     func requestAccess() {
@@ -130,6 +36,61 @@ class ContactsViewModel: ObservableObject {
             }
         @unknown default:
             print("error")
+        }
+    }
+    
+    
+    func getContacts() {
+        DispatchQueue.main.async {
+            self.contacts = self.fetchingContacts()
+        }
+    }
+    
+    
+    func fetchingContacts() -> [ContactInfo] {
+        var contacts = [ContactInfo]()
+        let keys = [CNContactGivenNameKey, CNContactFamilyNameKey, CNContactPhoneNumbersKey]
+        let request = CNContactFetchRequest(keysToFetch: keys as [CNKeyDescriptor])
+        do {
+            try CNContactStore().enumerateContacts(with: request, usingBlock: { (contact, stopPointer) in
+                //Remove any spaces in the contact number
+                let mobile = contact.phoneNumbers.first?.value.stringValue ?? ""
+                var mobileNumber = String(mobile.filter { !" \n\t\r".contains($0) })
+                //Modify anything starting with 0 to be +44 instead
+                if mobileNumber.prefix(1) == "0" {
+                    mobileNumber.remove(at: mobileNumber.startIndex)
+                    mobileNumber.insert(contentsOf: "+44", at: mobileNumber.startIndex)
+                }
+                //Remove non +44 numbers
+                if mobileNumber.starts(with: "+44") {
+                    //Save the contact in the contact array
+                    contacts.append(ContactInfo(firstName: contact.givenName, lastName: contact.familyName, mobileNumber: mobileNumber))
+                }
+            })
+        } catch let error {
+            print("Failed", error)
+        }
+        contacts = contacts.sorted {
+            $0.firstName < $1.firstName
+        }
+        checkContacts(contacts: contacts)
+        return contacts
+    }
+    
+    
+    func checkContacts(contacts: [ContactInfo]) {
+        self.mobileArray.removeAll()
+        for contact in contacts {
+            Firestore.firestore().collection("users").whereField("mobileNumber", isEqualTo: contact.mobileNumber).getDocuments { documentSnapshot, error in
+                
+                guard let documents = documentSnapshot?.documents else { return }
+                documents.map { QueryDocumentSnapshot in
+                    let data = QueryDocumentSnapshot.data()
+                    let mobileNumber = data["mobileNumber"] as? String ?? ""
+                    let firstName = data["name"] as? String ?? ""
+                    self.mobileArray.append(ContactInfo(firstName: firstName, lastName: "", mobileNumber: mobileNumber))
+                }
+            }
         }
     }
     
