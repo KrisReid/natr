@@ -319,8 +319,8 @@
 			isa = PBXGroup;
 			children = (
 				0220CA4726B8348900B640EF /* LoginViewModel.swift */,
-				0220CA7926BBF76A00B640EF /* ContactsViewModel.swift */,
 				0220CA7C26BBF78A00B640EF /* MessagesViewModel.swift */,
+				0220CA7926BBF76A00B640EF /* ContactsViewModel.swift */,
 				0220CA7F26BBF7A900B640EF /* ChatViewModel.swift */,
 				0220CA8226BBF7C100B640EF /* CreateChatViewModel.swift */,
 				0261EB7426E5695800C72E51 /* HashingPOCHelper.swift */,

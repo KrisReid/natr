@@ -10,10 +10,10 @@ import Contacts
 
 struct ContactsView: View {
     
-    @Binding var mobielNumber: String
     @Binding var isPresented: Bool
     
-    @ObservedObject var vm = ContactsViewModel()
+//    @ObservedObject var vm = ContactsViewModel()
+    @ObservedObject var vm = MessagesViewModel()
     
     var body: some View {
         ZStack {
@@ -36,7 +36,6 @@ struct ContactsView: View {
                 .listStyle(PlainListStyle())
             }
             .onAppear() {
-                vm.mobileNumber = mobielNumber
                 vm.requestAccess()
             }
         }
@@ -49,7 +48,7 @@ struct ContactRow: View {
     @Binding var isPresented: Bool
     var contact: ContactInfo
     
-    @ObservedObject var vm = ContactsViewModel()
+    @ObservedObject var vm = MessagesViewModel()
     
     var body: some View {
         HStack {
@@ -64,7 +63,7 @@ struct ContactRow: View {
             
             Button(action: {
                 // Create a new chat with these 2 users
-                vm.createChat()
+                vm.createChat(mobileNumber: contact.mobileNumber)
                 
                 // Go back to the other page
                 isPresented.toggle()
@@ -79,7 +78,7 @@ struct ContactRow: View {
 
 struct ContactsView_Previews: PreviewProvider {
     static var previews: some View {
-        ContactsView(mobielNumber: .constant(""), isPresented: .constant(false))
+        ContactsView(isPresented: .constant(false))
     }
 }
 
