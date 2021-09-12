@@ -364,8 +364,8 @@
 		0220CA5D26BBF64200B640EF /* App */ = {
 			isa = PBXGroup;
 			children = (
-				0220CA5E26BBF66000B640EF /* ContactsView.swift */,
 				0220CA6126BBF68300B640EF /* MessagesView.swift */,
+				0220CA5E26BBF66000B640EF /* ContactsView.swift */,
 				0220CA6426BBF69F00B640EF /* SearchView.swift */,
 				0220CA6726BBF6B600B640EF /* FavouriteCarouselView.swift */,
 				0220CA6A26BBF6D500B640EF /* MessageListView.swift */,

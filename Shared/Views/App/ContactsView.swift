@@ -10,8 +10,10 @@ import Contacts
 
 struct ContactsView: View {
     
-    @ObservedObject var vm = ContactsViewModel()
+    @Binding var mobielNumber: String
     @Binding var isPresented: Bool
+    
+    @ObservedObject var vm = ContactsViewModel()
     
     var body: some View {
         ZStack {
@@ -34,6 +36,7 @@ struct ContactsView: View {
                 .listStyle(PlainListStyle())
             }
             .onAppear() {
+                vm.mobileNumber = mobielNumber
                 vm.requestAccess()
             }
         }
@@ -69,7 +72,7 @@ struct ContactRow: View {
 
 struct ContactsView_Previews: PreviewProvider {
     static var previews: some View {
-        ContactsView(isPresented: .constant(false))
+        ContactsView(mobielNumber: .constant(""), isPresented: .constant(false))
     }
 }
 

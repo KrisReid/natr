@@ -50,7 +50,7 @@ struct MessagesView: View {
                     .font(.system(size: 26, weight: .light))
             }))
             .sheet(isPresented: $showModal) {
-                ContactsView(isPresented: self.$showModal)
+                ContactsView(mobielNumber: $vm.currentUser.mobileNumber, isPresented: self.$showModal)
             }
         }
     }

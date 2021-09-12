@@ -15,7 +15,7 @@ class ContactsViewModel: ObservableObject {
     
     @Published var contacts = [ContactInfo.init(firstName: "", lastName: "", mobileNumber: "")]
     @Published var mobileArray = [ContactInfo.init(firstName: "", lastName: "", mobileNumber: "")]
-
+    @Published var mobileNumber: String = ""
     
     func requestAccess() {
         let store = CNContactStore()
@@ -79,9 +79,11 @@ class ContactsViewModel: ObservableObject {
     
     
     func checkContacts(contacts: [ContactInfo]) {
+
         self.mobileArray.removeAll()
         for contact in contacts {
-            Firestore.firestore().collection("users").whereField("mobileNumber", isEqualTo: contact.mobileNumber).getDocuments { documentSnapshot, error in
+//            Firestore.firestore().collection("users").whereField("mobileNumber", isEqualTo: contact.mobileNumber).getDocuments { documentSnapshot, error in
+            Firestore.firestore().collection("users").whereField("mobileNumber", isNotEqualTo: mobileNumber).whereField("mobileNumber", isEqualTo: contact.mobileNumber).getDocuments { documentSnapshot, error in
                 
                 guard let documents = documentSnapshot?.documents else { return }
                 documents.map { QueryDocumentSnapshot in
