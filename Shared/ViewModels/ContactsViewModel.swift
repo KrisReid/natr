@@ -96,4 +96,69 @@ class ContactsViewModel: ObservableObject {
         }
     }
     
+    
+    
+    
+    func createChat() {
+        
+        // HOW DO I GET THE PHONE NUMBER !!!!!!!!!!
+        
+        print("78888765566")
+        print(mobileNumber)
+        
+        Firestore.firestore().collection("user").whereField("mobileNumber", isEqualTo: mobileNumber).getDocuments { documentSnapshot, error in
+            
+            print("222222222222")
+            if let error = error {
+                print("Error getting documents: \(error)")
+            } else {
+                for document in documentSnapshot!.documents {
+                    print("33333333333333333")
+                    print("\(document.documentID) => \(document.data())")
+                }
+                print("444444444444444")
+            }
+        }
+        
+        
+//        do {
+//            let uid = Auth.auth().currentUser?.uid ?? ""
+//            let db = Firestore.firestore().collection("groups").document()
+//            //Might need to chage the date to be a timestamp by not using the model and just use an Dictionary of [String:Any]
+//            let group = Group(id: db.documentID, createdBy: uid, members: [uid, "2345676543234567"], createdOn: Date(), lastMessage: "")
+//
+//            try db.setData(from: group, completion: { (err) in
+//
+//                // Add a Message to the Group Chat as it does it already
+//
+//                //Can probably replace this with the function in ChatViewModel.
+//                do {
+//                    let messageDB = Firestore.firestore().collection("groups").document(db.documentID).collection("messages").document()
+//                    let message = Message(id: messageDB.documentID, content: "Hello 👋", userId: uid, timeDate: Timestamp(date: Date()))
+//                    try messageDB.setData(from: message)
+//
+//                    //save latest message
+//                    Firestore.firestore().collection("groups").document(db.documentID).setData(["lastMessage":"Hello 👋"], merge: true)
+//                }
+//                catch {
+//                    print(error.localizedDescription)
+//                }
+//
+//
+//                // Add the group chat ID to the user
+//                Firestore.firestore().collection("users").document(uid).collection("groups").document(db.documentID)
+//
+//
+//                //Add the group chat ID to the other user
+//
+//
+//            })
+//        }
+//        catch {
+//            print(error.localizedDescription)
+//        }
+//
+        
+    }
+    
 }

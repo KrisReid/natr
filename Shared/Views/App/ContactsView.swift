@@ -29,7 +29,7 @@ struct ContactsView: View {
                 
                 List {
                     ForEach(vm.mobileArray, id: \.self) { contact in
-                        ContactRow(contact: contact)
+                        ContactRow(isPresented: $isPresented, contact: contact)
                     }
                     .listRowBackground(Color("Primary_Background_Color"))
                 }
@@ -45,7 +45,11 @@ struct ContactsView: View {
 
 
 struct ContactRow: View {
+    
+    @Binding var isPresented: Bool
     var contact: ContactInfo
+    
+    @ObservedObject var vm = ContactsViewModel()
     
     var body: some View {
         HStack {
@@ -59,8 +63,11 @@ struct ContactRow: View {
             Spacer()
             
             Button(action: {
-                // Go back to the other page
                 // Create a new chat with these 2 users
+                vm.createChat()
+                
+                // Go back to the other page
+                isPresented.toggle()
             }, label: {
                 Image(systemName: "plus.circle")
                     .font(.system(size: 26, weight: .light))
