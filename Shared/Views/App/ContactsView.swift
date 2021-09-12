@@ -13,17 +13,20 @@ struct ContactsView: View {
     @ObservedObject var vm = ContactsViewModel()
     
     var body: some View {
-        List {
-            ForEach(vm.contacts, id: \.self)  { contact in
-                ContactRow(contact: contact)
+        
+        VStack {
+            
+            List {
+                ForEach(vm.mobileArray, id: \.self) { contact in
+                    ContactRow(contact: contact)
+                }
             }
-        }.onAppear() {
+        }
+        .onAppear() {
             vm.requestAccess()
         }
     }
 }
-
-// ONLY SHOW THE CONTACTS THAT HAVE THE APP
 
 
 struct ContactRow: View {

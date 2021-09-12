@@ -16,10 +16,13 @@ import FirebaseFirestore
 
 class ContactsViewModel: ObservableObject {
     
-    @Published var contacts = [ContactInfo.init(firstName: "", lastName: "", phoneNumber: nil, mobileNumber: "")]
-//    @Published var tempMobileArray = [ContactInfo.init(firstName: "", lastName: "", phoneNumber: nil, mobileNumber: "")]
-    @Published var tempMobileArray = []
-    @Published var mobileArray = []
+    @Published var contacts = [ContactInfo.init(firstName: "", lastName: "", mobileNumber: "")]
+    @Published var mobileArray = [ContactInfo.init(firstName: "", lastName: "", mobileNumber: "")]
+    
+    
+    func kristest() {
+        print(mobileArray)
+    }
     
     
     func fetchingContacts() -> [ContactInfo] {
@@ -42,7 +45,7 @@ class ContactsViewModel: ObservableObject {
                 //Remove non +44 numbers
                 if mobileNumber.starts(with: "+44") {
                     //Save the contact in the contact array
-                    contacts.append(ContactInfo(firstName: contact.givenName, lastName: contact.familyName, phoneNumber: contact.phoneNumbers.first?.value, mobileNumber: mobileNumber))
+                    contacts.append(ContactInfo(firstName: contact.givenName, lastName: contact.familyName, mobileNumber: mobileNumber))
                 }
 
             })
@@ -58,33 +61,46 @@ class ContactsViewModel: ObservableObject {
     }
     
     func checkContacts(contacts: [ContactInfo]) {
-        for contact in contacts {
-//            print("\(contact.firstName): \(contact.mobileNumber)")
-            tempMobileArray.append(contact.mobileNumber)
-        }
-        doStuff()
         
-    }
-    
-   
-    
-    func doStuff() {
-        for mobile in tempMobileArray {
-            Firestore.firestore().collection("users").whereField("mobileNumber", isEqualTo: mobile).getDocuments { documentSnapshot, error in
+        self.mobileArray.removeAll()
+        
+        for contact in contacts {
+            Firestore.firestore().collection("users").whereField("mobileNumber", isEqualTo: contact.mobileNumber).getDocuments { documentSnapshot, error in
                 
                 guard let documents = documentSnapshot?.documents else { return }
-                
-                self.mobileArray.append(contentsOf: documents.map({ (queryDocumentSnapshot) -> Mobile in
-                    let data = queryDocumentSnapshot.data()
+                documents.map { QueryDocumentSnapshot in
+                    let data = QueryDocumentSnapshot.data()
                     let mobileNumber = data["mobileNumber"] as? String ?? ""
-                    print("mobileNumber: \(mobileNumber)")
-                    return Mobile(mobileNumber: mobileNumber)
-                }))
+                    let firstName = data["name"] as? String ?? ""
+                    self.mobileArray.append(ContactInfo(firstName: firstName, lastName: "", mobileNumber: mobileNumber))
+                }
             }
         }
     }
     
+   
     
+//    func doStuff() {
+//        for mobile in tempMobileArray {
+//            Firestore.firestore().collection("users").whereField("mobileNumber", isEqualTo: mobile).getDocuments { documentSnapshot, error in
+//
+//                guard let documents = documentSnapshot?.documents else { return }
+//
+////                self.mobileArray.append(contentsOf: documents.map({ (queryDocumentSnapshot) -> Mobile in
+//                self.mobileArray.append(contentsOf: documents.map({ (queryDocumentSnapshot) -> ContactInfo in
+//                    let data = queryDocumentSnapshot.data()
+//                    let mobileNumber = data["mobileNumber"] as? String ?? ""
+//                    let firstName = data["firstName"] as? String ?? ""
+//                    let lastName = data["lastName"] as? String ?? ""
+//                    print(mobileNumber)
+//
+//                    print(self.mobileArray)
+////                    return Mobile(mobileNumber: mobileNumber)
+//                    return ContactInfo(firstName: firstName, lastName: lastName, mobileNumber: mobileNumber)
+//                }))
+//            }
+//        }
+//    }
     
     
     
