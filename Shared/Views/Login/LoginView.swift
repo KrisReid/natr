@@ -24,23 +24,25 @@ struct LoginView: View {
                     .ignoresSafeArea()
                 
                 VStack {
-                    Blob(offset: change ? -200 : -100)
-                        .fill(Color(#colorLiteral(red: 0.9696754813, green: 0.5562316775, blue: 0.5004004836, alpha: 1)))
-                        .frame(height: 200)
-                        .rotationEffect(.degrees(180))
-                        .onAppear {
-                            withAnimation (self.animation) {
-                                change.toggle()
-                            }
-                        }
-                    
-                    Spacer()
+//                    Blob(offset: change ? -200 : -100)
+//                        .fill(Color(#colorLiteral(red: 0.9696754813, green: 0.5562316775, blue: 0.5004004836, alpha: 1)))
+//                        .frame(height: 200)
+//                        .rotationEffect(.degrees(180))
+//                        .onAppear {
+//                            withAnimation (self.animation) {
+//                                change.toggle()
+//                            }
+//                        }
+//
+//                    Spacer()
                 }
-                .ignoresSafeArea()
+//                .ignoresSafeArea()
                 
                 VStack {
-                    natrLogo()
-                        .offset(x: 0, y: geometry.size.height * 0.4)
+                    
+//                    natrLogo()
+//                        .offset(x: 0, y: geometry.size.height * 0.4)
+                    
                     Spacer()
                     
                     HStack{

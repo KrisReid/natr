@@ -236,11 +236,13 @@ class MessagesViewModel: ObservableObject {
     }
     
     
+//    func checkChatExists
+    
+    
     func checkContacts(contacts: [ContactInfo]) {
 
         self.mobileArray.removeAll()
         for contact in contacts {
-//            Firestore.firestore().collection("users").whereField("mobileNumber", isEqualTo: contact.mobileNumber).getDocuments { documentSnapshot, error in
             Firestore.firestore().collection("users").whereField("mobileNumber", isNotEqualTo: currentUser.mobileNumber).whereField("mobileNumber", isEqualTo: contact.mobileNumber).getDocuments { documentSnapshot, error in
                 
                 guard let documents = documentSnapshot?.documents else { return }
@@ -300,6 +302,7 @@ class MessagesViewModel: ObservableObject {
 
                             //Add the group chat ID to the other user
                             Firestore.firestore().collection("users").document(contactID).updateData(["groups" : FieldValue.arrayUnion([db.documentID])])
+
                         })
                     }
                     catch {
@@ -309,8 +312,6 @@ class MessagesViewModel: ObservableObject {
                 }
             }
         }
-        
-        
 
         
     }
