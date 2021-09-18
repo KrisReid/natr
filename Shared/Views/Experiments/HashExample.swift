@@ -21,7 +21,7 @@ struct HashExample: View {
             
             Button(action: {
                 vm.hashMeBaby(value: name)
-                vm.encryptData(encryptString: name)
+//                vm.encryptData(encryptString: name)
             }) {
                 Image(systemName: "arrow.up.circle.fill")
                     .resizable()

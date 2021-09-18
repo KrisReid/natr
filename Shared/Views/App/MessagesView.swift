@@ -18,6 +18,8 @@ struct MessagesView: View {
         UITableViewCell.appearance().selectionStyle = .none
     }
     
+    @State private var showModalTest:Bool = false
+    
     @State private var showModal:Bool = false
     @ObservedObject var vm = MessagesViewModel()
     
@@ -44,19 +46,36 @@ struct MessagesView: View {
                 
             }
             .navigationBarTitle("Messages")
-            .navigationBarItems(trailing: Button(action: showContactList, label: {
-                Image(systemName: "plus")
+            
+            .navigationBarItems(leading: Button(action: showModalTesting, label: {
+                Image(systemName: "graduationcap")
                     .foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
-                    .font(.system(size: 26, weight: .light))
-            }))
+                .font(.system(size: 26, weight: .light))}), trailing: Button(action: showContactList, label: {
+                        Image(systemName: "plus")
+                            .foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
+                    .font(.system(size: 26, weight: .light))}))
+            
+            
+//            .navigationBarItems(trailing: Button(action: showContactList, label: {
+//                Image(systemName: "plus")
+//                    .foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
+//                    .font(.system(size: 26, weight: .light))
+//            }))
             .sheet(isPresented: $showModal) {
                 ContactsView(isPresented: self.$showModal)
+            }
+            .sheet(isPresented: $showModalTest) {
+                AsyncAwait(isPresented: self.$showModalTest)
             }
         }
     }
     
     private func showContactList() {
         self.showModal = true
+    }
+    
+    private func showModalTesting() {
+        self.showModalTest = true
     }
     
 }

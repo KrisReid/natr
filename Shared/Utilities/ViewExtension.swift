@@ -10,6 +10,7 @@ import SwiftUI
 extension View {
     func endEditing(_ force: Bool) {
         UIApplication.shared.windows.forEach { $0.endEditing(force)}
+//        UIWindowScene.windows.forEach{ $0.endEditing(force)}
     }
     
     func hideKeyboard() {

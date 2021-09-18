@@ -37,8 +37,6 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         Messaging.messaging().apnsToken = deviceToken;
-        print("----------- APNS TOKEN IS SET -------------")
-        print(Messaging.messaging().apnsToken)
     }
 
 }

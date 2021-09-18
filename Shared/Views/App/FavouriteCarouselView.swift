@@ -49,7 +49,7 @@ struct FavouriteCarouselView: View {
                                             .cornerRadius(32)
                                             .shadow(radius: 5)
                                             .scaleEffect(CGSize(width: scale, height: scale))
-                                            .animation(.easeOut(duration: 0.5))
+                                            .animation(.easeOut(duration: 0.5), value: 1)
                                     }
                                 }
                             )
@@ -66,7 +66,8 @@ struct FavouriteCarouselView: View {
 struct FavouriteCarouselView_Previews: PreviewProvider {
     static var previews: some View {
         
-        let sampleArray = [User(id: "", name: "", mobileNumber: "", imageUrl: "https://firebasestorage.googleapis.com/v0/b/aurora-2086f.appspot.com/o/users%2Fxk8d0f0GnVQ42rU9behcW3lCX4N2.jpeg?alt=media&token=8368d3bd-e1cb-4761-9782-42282d4bb4c7", fcmToken: "", publicToken: "", groups: [], favourites: []), User(id: "", name: "", mobileNumber: "", imageUrl: "https://firebasestorage.googleapis.com/v0/b/aurora-2086f.appspot.com/o/users%2Fv1IiXJdJe7Ww1GHIKMEePocoxYs2.jpeg?alt=media&token=2e61469b-3ac5-4c9d-8b85-625f1e985010", fcmToken: "", publicToken: "", groups: [], favourites: [])]
+        let sampleArray = [User(id: "", name: "", mobileNumber: "", imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQq7hpymOWO_E84SUM-9Bvrgz_JriPQl1vaCQ&usqp=CAU", fcmToken: "", publicToken: "", groups: [], favourites: []), User(id: "", name: "", mobileNumber: "", imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQq7hpymOWO_E84SUM-9Bvrgz_JriPQl1vaCQ&usqp=CAU", fcmToken: "", publicToken: "", groups: [], favourites: []), User(id: "", name: "", mobileNumber: "", imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQq7hpymOWO_E84SUM-9Bvrgz_JriPQl1vaCQ&usqp=CAU", fcmToken: "", publicToken: "", groups: [], favourites: []), User(id: "", name: "", mobileNumber: "", imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQq7hpymOWO_E84SUM-9Bvrgz_JriPQl1vaCQ&usqp=CAU", fcmToken: "", publicToken: "", groups: [], favourites: []), User(id: "", name: "", mobileNumber: "", imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQq7hpymOWO_E84SUM-9Bvrgz_JriPQl1vaCQ&usqp=CAU", fcmToken: "", publicToken: "", groups: [], favourites: []),User(id: "", name: "", mobileNumber: "", imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQq7hpymOWO_E84SUM-9Bvrgz_JriPQl1vaCQ&usqp=CAU", fcmToken: "", publicToken: "", groups: [], favourites: []), User(id: "", name: "", mobileNumber: "", imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQq7hpymOWO_E84SUM-9Bvrgz_JriPQl1vaCQ&usqp=CAU", fcmToken: "", publicToken: "", groups: [], favourites: []), User(id: "", name: "", mobileNumber: "", imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQq7hpymOWO_E84SUM-9Bvrgz_JriPQl1vaCQ&usqp=CAU", fcmToken: "", publicToken: "", groups: [], favourites: []), User(id: "", name: "", mobileNumber: "", imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQq7hpymOWO_E84SUM-9Bvrgz_JriPQl1vaCQ&usqp=CAU", fcmToken: "", publicToken: "", groups: [], favourites: []), User(id: "", name: "", mobileNumber: "", imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQq7hpymOWO_E84SUM-9Bvrgz_JriPQl1vaCQ&usqp=CAU", fcmToken: "", publicToken: "", groups: [], favourites: [])
+        ]
         
         
         FavouriteCarouselView(favourites: sampleArray )

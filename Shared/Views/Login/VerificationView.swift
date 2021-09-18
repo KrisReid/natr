@@ -52,7 +52,7 @@ struct VerificationView: View {
                             self.isMoving.toggle()
                         }
                         .offset(x: 0, y: self.isMoving ? 0 - 80 : -UIScreen.main.bounds.height - 120)
-                        .animation(.interpolatingSpring(mass: 1, stiffness: 50, damping: 10, initialVelocity: 0))
+                        .animation(.interpolatingSpring(mass: 1, stiffness: 50, damping: 10, initialVelocity: 0), value: 1)
                 }
 
                 Text("Code sent to + \(loginVM.getCountryCode()) \(loginVM.mobileNumber)")

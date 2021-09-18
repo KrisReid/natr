@@ -12,7 +12,6 @@ struct ContactsView: View {
     
     @Binding var isPresented: Bool
     
-//    @ObservedObject var vm = ContactsViewModel()
     @ObservedObject var vm = MessagesViewModel()
     
     var body: some View {
@@ -48,6 +47,7 @@ struct ContactRow: View {
     @Binding var isPresented: Bool
     var contact: ContactInfo
     
+    
     @ObservedObject var vm = MessagesViewModel()
     
     var body: some View {
@@ -63,7 +63,10 @@ struct ContactRow: View {
             
             Button(action: {
                 // Create a new chat with these 2 users
-                vm.createChat(mobileNumber: contact.mobileNumber)
+                Task.init(priority: .high) {
+                    let existingChat = try? await vm.createChat(mobileNumber: contact.mobileNumber)
+                    print(existingChat!)
+                }
                 
                 // Go back to the other page
                 isPresented.toggle()

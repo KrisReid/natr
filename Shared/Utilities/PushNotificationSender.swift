@@ -34,7 +34,7 @@ class PushNotificationSender {
             if error == nil && data != nil {
                 do {
                     let dictionary = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments) as? [String : Any]
-                    NSLog("Received data:\n\(dictionary))")
+                    print(dictionary!)
                 }
                 catch {
                     print("Error parsing the response data")

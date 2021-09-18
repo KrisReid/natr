@@ -23,8 +23,10 @@ class MessagesViewModel: ObservableObject {
 
     @Published var searchTerm: String = ""
     
+    
 
     init() {
+        
         let userID = getUserID()
         registerPushNotification(userID: userID)
         fetchCurrentUser(userID: userID)
@@ -236,11 +238,9 @@ class MessagesViewModel: ObservableObject {
     }
     
     
-//    func checkChatExists
-    
     
     func checkContacts(contacts: [ContactInfo]) {
-
+        
         self.mobileArray.removeAll()
         for contact in contacts {
             Firestore.firestore().collection("users").whereField("mobileNumber", isNotEqualTo: currentUser.mobileNumber).whereField("mobileNumber", isEqualTo: contact.mobileNumber).getDocuments { documentSnapshot, error in
@@ -259,63 +259,88 @@ class MessagesViewModel: ObservableObject {
     
     
     
-    func createChat(mobileNumber: String) {
-
+    //CREATING THE CHAT
+    
+    func createChat(mobileNumber: String) async throws -> String {
         
-        Firestore.firestore().collection("users").whereField("mobileNumber", isEqualTo: mobileNumber).getDocuments { documentSnapshot, error in
-
-            if let error = error {
-                print("Error getting documents: \(error)")
-            } else {
-                for document in documentSnapshot!.documents {
-                    let contactID = document.documentID
- 
-                    
-                    do {
-                        let uid = Auth.auth().currentUser?.uid ?? ""
-                        let db = Firestore.firestore().collection("groups").document()
-                        //Might need to chage the date to be a timestamp by not using the model and just use an Dictionary of [String:Any]
-                        let group = Group(id: db.documentID, createdBy: uid, members: [uid, contactID], createdOn: Date(), lastMessage: "")
-
-                        try db.setData(from: group, completion: { (err) in
-
-                            // Add a Message to the Group Chat as it does it already
-                            
-
-                            //Can probably replace this with the function in ChatViewModel.
-                            do {
-                                let messageDB = Firestore.firestore().collection("groups").document(db.documentID).collection("messages").document()
-                                let message = Message(id: messageDB.documentID, content: "Hello 👋", userId: uid, timeDate: Timestamp(date: Date()))
-                                try messageDB.setData(from: message)
-
-                                //save latest message
-                                Firestore.firestore().collection("groups").document(db.documentID).setData(["lastMessage":"Hello 👋"], merge: true)
-                            }
-                            catch {
-                                print(error.localizedDescription)
-                            }
-
-
-                            // Add the group chat ID to the user
-                            Firestore.firestore().collection("users").document(uid).updateData(["groups" : FieldValue.arrayUnion([db.documentID])])
-
-
-                            //Add the group chat ID to the other user
-                            Firestore.firestore().collection("users").document(contactID).updateData(["groups" : FieldValue.arrayUnion([db.documentID])])
-
-                        })
-                    }
-                    catch {
-                        print(error.localizedDescription)
-                    }
-
-                }
+        var chatID = ""
+        
+        do {
+            // FETCH MY UID
+            let uid = Auth.auth().currentUser?.uid ?? ""
+            
+            // FETCH THE USER OF THE PASSED MOBILE NUMBER
+            let user = try await fetchUserByMobile(mobileNumber: mobileNumber)
+            let contactID = user[0].id
+            
+            //DOES A CHAT ALREADY EXIST???
+            chatID = try await checkGroupExistance(uid: uid, contactUID: contactID)
+            
+            //CREATE CHAT IN DATABASE IF REQUIRED
+            if chatID.isEmpty {
+                createGroup(uid: uid, contactUID: contactID)
             }
         }
-
-        
+        catch {
+            print(error.localizedDescription)
+        }
+        return chatID
     }
     
+    
+    private func fetchUserByMobile(mobileNumber: String) async throws -> [User] {
+        let snapshot = try await Firestore.firestore().collection("users").whereField("mobileNumber", isEqualTo: mobileNumber).getDocuments()
+        return snapshot.documents.compactMap { document in
+            try? document.data(as: User.self)
+        }
+    }
+    
+    
+    private func checkGroupExistance(uid: String, contactUID: String) async throws -> String {
+        let snapshot = try await Firestore.firestore().collection("groups").whereField("members", isEqualTo: [uid, contactUID]).getDocuments()
+        var id = ""
+        snapshot.documents.compactMap { document in
+            let group = try? document.data(as: Group.self)
+            id = group?.id ?? ""
+        }
+        return id
+    }
+    
+    
+    private func createGroup(uid: String, contactUID: String) {
+        
+        let db = Firestore.firestore().collection("groups").document()
+        let group = Group(id: db.documentID, createdBy: uid, members: [uid, contactUID], createdOn: Date(), lastMessage: "")
+
+        try? db.setData(from: group, completion: { (err) in
+
+            //Can probably replace this with the function in ChatViewModel.
+            do {
+                let messageDB = Firestore.firestore().collection("groups").document(db.documentID).collection("messages").document()
+                let message = Message(id: messageDB.documentID, content: "Hello 👋", userId: uid, timeDate: Timestamp(date: Date()))
+                try messageDB.setData(from: message)
+
+                //save latest message
+                Firestore.firestore().collection("groups").document(db.documentID).setData(["lastMessage":"Hello 👋"], merge: true)
+            }
+            catch {
+                print(error.localizedDescription)
+            }
+
+
+            // Add the group chat ID to the user
+            Firestore.firestore().collection("users").document(uid).updateData(["groups" : FieldValue.arrayUnion([db.documentID])])
+
+
+            //Add the group chat ID to the other user
+            Firestore.firestore().collection("users").document(contactUID).updateData(["groups" : FieldValue.arrayUnion([db.documentID])])
+        })
+            
+    }
+    
+    
+    
+
     
     
     
