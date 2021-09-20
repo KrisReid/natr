@@ -361,7 +361,6 @@
 			isa = PBXGroup;
 			children = (
 				0220CA6126BBF68300B640EF /* MessagesView.swift */,
-				0271251826F0C9A300E96011 /* AsyncAwait.swift */,
 				0220CA5E26BBF66000B640EF /* ContactsView.swift */,
 				0220CA6426BBF69F00B640EF /* SearchView.swift */,
 				0220CA6726BBF6B600B640EF /* FavouriteCarouselView.swift */,
@@ -379,6 +378,7 @@
 			children = (
 				0261EB7126E567C900C72E51 /* HashExample.swift */,
 				0271251B26F36F1000E96011 /* Timeline.swift */,
+				0271251826F0C9A300E96011 /* AsyncAwait.swift */,
 			);
 			path = Experiments;
 			sourceTree = "<group>";

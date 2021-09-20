@@ -62,13 +62,11 @@ struct ContactRow: View {
             Spacer()
             
             Button(action: {
-                // Create a new chat with these 2 users
                 Task.init(priority: .high) {
                     let existingChat = try? await vm.createChat(mobileNumber: contact.mobileNumber)
                     print(existingChat!)
+                    // FUTURE PIECE OF WORK .... TAKE THE ID AND OPEN THE CHAT
                 }
-                
-                // Go back to the other page
                 isPresented.toggle()
             }, label: {
                 Image(systemName: "plus.circle")

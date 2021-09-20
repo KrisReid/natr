@@ -20,102 +20,85 @@ class MessagesViewModel: ObservableObject {
     @Published var chats = [Chat]()
     @Published var currentUser = User(id: "", name: "", mobileNumber: "", imageUrl: "", fcmToken: "", publicToken: "", groups: [], favourites: [])
     @Published var favourites = [User]()
-
     @Published var searchTerm: String = ""
-    
-    
 
-    init() {
-        
-        let userID = getUserID()
-        registerPushNotification(userID: userID)
-        fetchCurrentUser(userID: userID)
-        fetchMessages(userID: userID)
-    }
     
     
-    func getUserID() -> String {
-        return Auth.auth().currentUser?.uid ?? ""
-    }
-    
-    
-    func registerPushNotification(userID: String) {
-        let pushManager = PushNotificationManager(userID: userID)
-        pushManager.registerForPushNotifications()
-    }
-    
-    
-    func fetchCurrentUser(userID: String) {
-        Firestore.firestore().collection("users").document(userID).addSnapshotListener { documentSnapshot, error in
-            
-            //Clear the favourites model before we populate it with updates (SHIT)
-            self.currentUser = User(id: "", name: "", mobileNumber: "", imageUrl: "", fcmToken: "", publicToken: "", groups: [""], favourites: [""])
-            
-            guard let document = documentSnapshot else { return }
-            try? self.currentUser = document.data(as: User.self) ?? User(id: "", name: "", mobileNumber: "", imageUrl: "", fcmToken: "", publicToken: "", groups: [""], favourites: [""])
-            
-            //Watch out for a race condition on this thing!!!! Sometimes getting an empty array in the current user favourites
-            self.fetchFavourites()
-        }
-    }
-    
-    
-    
-    func fetchFavourites() {
-        Firestore.firestore().collection("users").whereField("id", in: self.currentUser.favourites).addSnapshotListener { (querySnapshot, error) in
-            
-            self.favourites.removeAll()
-            guard let documents = querySnapshot?.documents else { return }
-            
-            self.favourites = documents.compactMap { (queryDocumentSnapshot) -> User? in
-                return try? queryDocumentSnapshot.data(as: User.self)
-            }
-        }
-    }
-    
-    
-
-    func fetchMessages(userID: String) {
-        
-        Firestore.firestore().collection("groups").whereField("members", arrayContains: userID).addSnapshotListener { (documentSnapshot, error) in
-            
-            print("FIRED - fetchMessages")
-            
-            //Clear the chat model before we populate it with updates
-            self.chats.removeAll()
-            
-            guard let documents = documentSnapshot?.documents else { return }
-
-            self.groups = documents.map { (queryDocumentSnapshot) -> Group in
-                let data = queryDocumentSnapshot.data()
-                let id = data["id"] as? String ?? ""
-                let createdBy = data["createdBy"] as? String ?? ""
-                let lastMessage = data["lastMessage"] as? String ?? ""
-                let members = data["members"] as? [String] ?? [""]
-                let createdOn = (data["createdOn"] as? Timestamp)?.dateValue() ?? Date()
-                
-                
-                //get users which aren't me and where the group is within the group array
-                self.fetchMessagesReciever(uid: userID, groupId: id, lastMessage: lastMessage)
-                
-//                self.getMembersOfGroupByID(userID: userID, members: members, lastMessage: lastMessage, groupId: id)
-                
-                return Group(id: id, createdBy: createdBy, members: members, createdOn: createdOn, lastMessage: lastMessage)
-            }
-        }
-    }
-    
-    
-//    func getMembersOfGroupByID(userID: String, members: [String], lastMessage: String, groupId: String) {
+//    func fetchMessages() async {
+//        do {
+//            let uid = Auth.auth().currentUser?.uid ?? ""
+//            self.registerPushNotification(userID: uid)
+//            try await self.fetchUserByID(userID: uid)
+//            self.fetchMessageByUserID(userID: uid)
+//        }
+//        catch {
+//            print("Error")
+//        }
+//    }
 //
-////        Firestore.firestore().collection("users").whereField("id", in: members).addSnapshotListener { querySnapshot, error in
-//        print("FIRED - getMembersOfGroupByID")
 //
-//        Firestore.firestore().collection("users").whereField("id", in: members).whereField("id", isNotEqualTo: userID).addSnapshotListener { querySnapshot, error in
+//    func registerPushNotification(userID: String) {
+//        let pushManager = PushNotificationManager(userID: userID)
+//        pushManager.registerForPushNotifications()
+//    }
+//
+//
+//    private func fetchUserByID(userID: String) async throws {
+//        do {
+//            let document = try await Firestore.firestore().collection("users").document(userID).getDocument().data(as: User.self)
+//            guard let user = document else { return }
+//            DispatchQueue.main.async {
+//                self.currentUser = user
+//            }
+//            self.fetchFavourites(user: user)
+//        }
+//        catch {
+//            print(error.localizedDescription)
+//        }
+//    }
+//
+//
+//    private func fetchFavourites(user: User) {
+//        Firestore.firestore().collection("users").whereField("id", in: user.favourites).addSnapshotListener { (querySnapshot, error) in
+//            self.favourites.removeAll()
 //            guard let documents = querySnapshot?.documents else { return }
+//            self.favourites = documents.compactMap { (queryDocumentSnapshot) -> User? in
+//                return try? queryDocumentSnapshot.data(as: User.self)
+//            }
+//        }
+//    }
+//
+//
+//    func fetchMessageByUserID(userID: String) {
+//        Firestore.firestore().collection("groups").whereField("members", arrayContains: userID).addSnapshotListener { (documentSnapshot, error) in
 //
 //            //Clear the chat model before we populate it with updates
 //            self.chats.removeAll()
+//
+//            guard let documents = documentSnapshot?.documents else { return }
+//
+//            self.groups = documents.map { (queryDocumentSnapshot) -> Group in
+//                let data = queryDocumentSnapshot.data()
+//                let id = data["id"] as? String ?? ""
+//                let createdBy = data["createdBy"] as? String ?? ""
+//                let lastMessage = data["lastMessage"] as? String ?? ""
+//                let members = data["members"] as? [String] ?? [""]
+//                let createdOn = (data["createdOn"] as? Timestamp)?.dateValue() ?? Date()
+//
+//                //get users which aren't me and where the group is within the group array
+//                self.fetchMessagesReciever(uid: userID, groupId: id, lastMessage: lastMessage)
+//
+//                return Group(id: id, createdBy: createdBy, members: members, createdOn: createdOn, lastMessage: lastMessage)
+//            }
+//        }
+//    }
+//
+//
+//    private func fetchMessagesReciever(uid: String, groupId: String, lastMessage: String) {
+//
+//        Firestore.firestore().collection("users").whereField("groups", arrayContains: groupId).whereField("id", isNotEqualTo: uid).getDocuments { querySnapshot, error in
+//
+//            guard let documents = querySnapshot?.documents else { return }
 //
 //            self.chats.append(contentsOf: documents.map({ (queryDocumentSnapshot) -> Chat in
 //
@@ -137,14 +120,106 @@ class MessagesViewModel: ObservableObject {
 //        }
 //    }
     
-    
-    private func fetchMessagesReciever(uid: String, groupId: String, lastMessage: String) {
 
-        print("FIRED - fetchMessagesReciever")
+    
+    
+    init() {
+        let userID = getUserID()
+        registerPushNotification(userID: userID)
+        fetchCurrentUser(userID: userID)
+        fetchMessages(userID: userID)
+    }
+
+
+    func getUserID() -> String {
+        print("11111111111")
+        return Auth.auth().currentUser?.uid ?? ""
+    }
+
+
+    func registerPushNotification(userID: String) {
+        print("33333333333")
+        let pushManager = PushNotificationManager(userID: userID)
+        pushManager.registerForPushNotifications()
+        print("444444444444")
+    }
+
+
+    func fetchCurrentUser(userID: String) {
+        print("5555555555555")
+        Firestore.firestore().collection("users").document(userID).addSnapshotListener { documentSnapshot, error in
+            print("666666666666")
+
+            //Clear the favourites model before we populate it with updates (SHIT)
+            self.currentUser = User(id: "", name: "", mobileNumber: "", imageUrl: "", fcmToken: "", publicToken: "", groups: [""], favourites: [""])
+
+            guard let document = documentSnapshot else { return }
+            try? self.currentUser = document.data(as: User.self) ?? User(id: "", name: "", mobileNumber: "", imageUrl: "", fcmToken: "", publicToken: "", groups: [""], favourites: [""])
+
+            //Watch out for a race condition on this thing!!!! Sometimes getting an empty array in the current user favourites
+            print("77777777777777")
+            self.fetchFavourites()
+        }
+    }
+
+
+
+    func fetchFavourites() {
+        print("88888888888888")
+        Firestore.firestore().collection("users").whereField("id", in: self.currentUser.favourites).addSnapshotListener { (querySnapshot, error) in
+
+            self.favourites.removeAll()
+            guard let documents = querySnapshot?.documents else { return }
+
+            self.favourites = documents.compactMap { (queryDocumentSnapshot) -> User? in
+                print("999999999999999999")
+                return try? queryDocumentSnapshot.data(as: User.self)
+            }
+        }
+    }
+
+
+
+    func fetchMessages(userID: String) {
+
+        print("1111")
+
+        Firestore.firestore().collection("groups").whereField("members", arrayContains: userID).addSnapshotListener { (documentSnapshot, error) in
+
+            //Clear the chat model before we populate it with updates
+            self.chats.removeAll()
+
+            guard let documents = documentSnapshot?.documents else { return }
+
+            self.groups = documents.map { (queryDocumentSnapshot) -> Group in
+                let data = queryDocumentSnapshot.data()
+                let id = data["id"] as? String ?? ""
+                let createdBy = data["createdBy"] as? String ?? ""
+                let lastMessage = data["lastMessage"] as? String ?? ""
+                let members = data["members"] as? [String] ?? [""]
+                let createdOn = (data["createdOn"] as? Timestamp)?.dateValue() ?? Date()
+
+                print("2222")
+
+                //get users which aren't me and where the group is within the group array
+                self.fetchMessagesReciever(uid: userID, groupId: id, lastMessage: lastMessage)
+
+                print("3333")
+
+                return Group(id: id, createdBy: createdBy, members: members, createdOn: createdOn, lastMessage: lastMessage)
+            }
+        }
+    }
+
+
+
+
+    private func fetchMessagesReciever(uid: String, groupId: String, lastMessage: String) {
+        print("4444")
 
         Firestore.firestore().collection("users").whereField("groups", arrayContains: groupId).whereField("id", isNotEqualTo: uid).getDocuments { querySnapshot, error in
-            
-//        Firestore.firestore().collection("users").whereField("groups", arrayContains: groupId).whereField("id", isNotEqualTo: uid).addSnapshotListener { querySnapshot, error in
+
+            print("5555")
             guard let documents = querySnapshot?.documents else { return }
 
             self.chats.append(contentsOf: documents.map({ (queryDocumentSnapshot) -> Chat in
@@ -160,12 +235,15 @@ class MessagesViewModel: ObservableObject {
                 let recieverGroups = data["groups"] as? [String] ?? [""]
                 let revieverFavourites = data["favourites"] as? [String] ?? [""]
 
+                print("6666")
+
                 return Chat(reciever: User(id: recieverId, name: recieverName, mobileNumber: recieverMobileNumber, imageUrl: recieverImageUrl, fcmToken: recieverFcmToken, publicToken: publicToken, groups: recieverGroups, favourites: revieverFavourites), groupId: groupId, lastMessage: lastMessage)
 
             }))
 
         }
     }
+    
     
     
     
@@ -246,6 +324,7 @@ class MessagesViewModel: ObservableObject {
             Firestore.firestore().collection("users").whereField("mobileNumber", isNotEqualTo: currentUser.mobileNumber).whereField("mobileNumber", isEqualTo: contact.mobileNumber).getDocuments { documentSnapshot, error in
                 
                 guard let documents = documentSnapshot?.documents else { return }
+                
                 documents.map { QueryDocumentSnapshot in
                     let data = QueryDocumentSnapshot.data()
                     let mobileNumber = data["mobileNumber"] as? String ?? ""
@@ -257,9 +336,12 @@ class MessagesViewModel: ObservableObject {
     }
     
     
+
     
     
-    //CREATING THE CHAT
+    
+    
+    
     
     func createChat(mobileNumber: String) async throws -> String {
         
