@@ -28,38 +28,38 @@ class HashingPOCHelper: ObservableObject {
     }
     
     
-    //Encrypt Data
-    func encryptData(encryptString: String) -> String {
-        do {
-            
-            print("Key: \(key)")
-            let message = encryptString.data(using: .utf8)!
-            encryptedData = try AES.GCM.seal(message, using: key, nonce: iv).combined
-            
-            //SAVE THE DATA FOR LATER USE
-            //WOULD ULTIMATELY NEED TO STORE THIS IN THE DATABASE OR LOCALLY? (STORING TOGETHER IN THE DB IS DUMB?)
-            //IS THE KEY UNIQUE OR SHARED ???
-            content = Content(contentMessage: encryptedData, contentKey: key)
-            return encryptedData.base64EncodedString()
-            
-//            decryptData(decryptToData: encryptedData, key: key)
-            
-        } catch {
-            print("Error")
-            return "Error"
-        }
-    }
-    
-    //Decrypt Data
-    func decryptData(decryptToData: Data, key: SymmetricKey) {
-        let sealedBoxToOpen = try! AES.GCM.SealedBox(combined: decryptToData)
-
-        if let decryptedData = try? AES.GCM.open(sealedBoxToOpen, using: key) {
-            self.decryptedData = String(data: decryptedData, encoding: .utf8)!
-        } else {
-            print("error", CryptoKitError.self)
-        }
-    }
+//    //Encrypt Data
+//    func encryptData(encryptString: String) -> String {
+//        do {
+//            
+//            print("Key: \(key)")
+//            let message = encryptString.data(using: .utf8)!
+//            encryptedData = try AES.GCM.seal(message, using: key, nonce: iv).combined
+//            
+//            //SAVE THE DATA FOR LATER USE
+//            //WOULD ULTIMATELY NEED TO STORE THIS IN THE DATABASE OR LOCALLY? (STORING TOGETHER IN THE DB IS DUMB?)
+//            //IS THE KEY UNIQUE OR SHARED ???
+//            content = Content(contentMessage: encryptedData, contentKey: key)
+//            return encryptedData.base64EncodedString()
+//            
+////            decryptData(decryptToData: encryptedData, key: key)
+//            
+//        } catch {
+//            print("Error")
+//            return "Error"
+//        }
+//    }
+//    
+//    //Decrypt Data
+//    func decryptData(decryptToData: Data, key: SymmetricKey) {
+//        let sealedBoxToOpen = try! AES.GCM.SealedBox(combined: decryptToData)
+//
+//        if let decryptedData = try? AES.GCM.open(sealedBoxToOpen, using: key) {
+//            self.decryptedData = String(data: decryptedData, encoding: .utf8)!
+//        } else {
+//            print("error", CryptoKitError.self)
+//        }
+//    }
         
     
 }

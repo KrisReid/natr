@@ -19,7 +19,7 @@ struct MessageListView: View {
         List {
             ForEach(self.chats, id: \.self) { chat in
                 NavigationLink (
-                    destination: ChatView(chat: chat, currentUser: self.currentUser, vm: .init(groupId: chat.groupId)),
+                    destination: ChatView(chat: chat, currentUser: self.currentUser, vm: .init(groupId: chat.groupId, publicToken: chat.reciever.publicToken)),
                     label: {
                         MessageCellView(message: chat)
                             .foregroundColor(Color(.label))

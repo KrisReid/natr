@@ -24,8 +24,8 @@ class Crypto: ObservableObject {
     
     func importPublicKey(_ publicKey: String) throws -> Curve25519.KeyAgreement.PublicKey {
         let publicKeyBase64 = publicKey.removingPercentEncoding!
-        let rawPubliceKey = Data(base64Encoded: publicKeyBase64)!
-        return try Curve25519.KeyAgreement.PublicKey(rawRepresentation: rawPubliceKey)
+        let rawPublicKey = Data(base64Encoded: publicKeyBase64)!
+        return try Curve25519.KeyAgreement.PublicKey(rawRepresentation: rawPublicKey)
     }
     
     
@@ -78,5 +78,60 @@ class Crypto: ObservableObject {
         
         SecItemDelete(query)
     }
+    
+    
+    func generateSymmetricKey(publicToken: String) throws -> SymmetricKey {
+
+        let privateKey = retirevePrivateKey()
+        
+//        do {
+//            let publicKey = try importPublicKey(publicKeyString)
+//        }
+//        catch {
+//            print(error.localizedDescription)
+//        }
+        let publicKey = try? importPublicKey(publicToken)
+        
+        let sharedSecret = try privateKey.sharedSecretFromKeyAgreement(with: publicKey!)
+        
+        let symmetricKey = sharedSecret.hkdfDerivedSymmetricKey(
+            using: SHA256.self,
+            salt: "My Key Agreement Salt".data(using: .utf8)!,
+            sharedInfo: Data(),
+            outputByteCount: 32
+        )
+        
+        return symmetricKey
+            
+    }
+    
+    
+    func encryptText(text: String, symmetricKey: SymmetricKey) throws -> String {
+        let textData = text.data(using: .utf8)!
+        let encrypted = try AES.GCM.seal(textData, using: symmetricKey)
+        return encrypted.combined!.base64EncodedString()
+    }
+    
+    
+    func decryptText(text: String, symmetricKey: SymmetricKey) -> String {
+        do {
+            guard let data = Data(base64Encoded: text) else {
+                return "Could not decode text: \(text)"
+            }
+            
+            let sealedBox = try AES.GCM.SealedBox(combined: data)
+            let decryptedData = try AES.GCM.open(sealedBox, using: symmetricKey)
+            
+            guard let text = String(data: decryptedData, encoding: .utf8) else {
+                return "Could not decode data: \(decryptedData)"
+            }
+            
+            return text
+        } catch let error {
+            return "Error decrypting message: \(error.localizedDescription)"
+        }
+    }
+    
+    
     
 }

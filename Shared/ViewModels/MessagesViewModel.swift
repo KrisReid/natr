@@ -10,7 +10,7 @@ import SwiftUI
 import FirebaseAuth
 import FirebaseFirestore
 import FirebaseFirestoreSwift
-import CryptoKit
+//import CryptoKit
 import Contacts
 
 
@@ -178,6 +178,8 @@ class MessagesViewModel: ObservableObject {
         }
     }
 
+    
+    //Need to make this sychronose
 
 
     func fetchMessages(userID: String) {
