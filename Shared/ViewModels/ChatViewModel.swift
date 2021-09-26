@@ -17,8 +17,8 @@ class ChatViewModel: ObservableObject {
     @Published var lastMessageId: String = ""
     
     
-    init(groupId: String, publicToken: String) {
-        fetchGroupMessages(groupId: groupId, publicToken: publicToken)
+    init(groupId: String, recipientPublicToken: String, usersPublicToken: String) {
+        fetchGroupMessages(groupId: groupId, recipientPublicToken: recipientPublicToken, usersPublicToken: usersPublicToken)
     }
     
     
@@ -27,11 +27,13 @@ class ChatViewModel: ObservableObject {
     }
 
     
-    func fetchGroupMessages(groupId: String, publicToken: String) {
-        
-        do {
+    func fetchGroupMessages(groupId: String, recipientPublicToken: String, usersPublicToken: String) {
+                
+//            let currentUser = Auth.auth().currentUser?.uid ?? ""
             let encryption = Crypto()
-            let symmetricKey = try encryption.generateSymmetricKey(publicToken: publicToken)
+            let symmetricKey = try encryption.generateSymmetricKey(publicToken: recipientPublicToken)
+            
+            
             
             Firestore.firestore().collection("groups").document(groupId).collection("messages").order(by: "timeDate").addSnapshotListener { documentSnapshot, error in
                 
@@ -42,9 +44,32 @@ class ChatViewModel: ObservableObject {
                     
                     let id = data["id"] as? String ?? ""
                     let content = data["content"] as? String ?? ""
-                    let decryptText = encryption.decryptText(text: content, symmetricKey: symmetricKey)
                     let userId = data["userId"] as? String ?? ""
                     let timeDate = (data["timeDate"] as? Timestamp)?.dateValue() ?? Date()
+                    
+                    let decryptText = encryption.decryptText(text: content, symmetricKey: symmetricKey)
+                    
+//                    var decryptText: String = ""
+//
+//                    do {
+//                        if userId == currentUser {
+//                            let symmetricKey = try encryption.generateSymmetricKey(publicToken: recipientPublicToken)
+//                            decryptText = encryption.decryptText(text: content, symmetricKey: symmetricKey)
+//                            print("---CURENT USER-----")
+//                            print(decryptText)
+//                        }
+//                        else {
+//                            let symmetricKey = try encryption.generateSymmetricKey(publicToken: usersPublicToken)
+//                            decryptText = encryption.decryptText(text: content, symmetricKey: symmetricKey)
+//                            print("---OTHERzzzzzzz USER-----")
+//                            print(decryptText)
+//                        }
+//                    }
+//                    catch {
+//                        print(error.localizedDescription)
+//                    }
+                        
+                    
                     
                     return Message(id: id, content: decryptText, userId: userId, timeDate: Timestamp(date: timeDate))
     //                return Message(id: id, content: content, userId: userId, timeDate: Timestamp(date: Date()))
@@ -54,11 +79,6 @@ class ChatViewModel: ObservableObject {
     //                return try? queryDocumentSnapshot.data(as: Message.self)
     //            }
             }
-            
-        }
-        catch {
-            print(error.localizedDescription)
-        }
     }
     
     

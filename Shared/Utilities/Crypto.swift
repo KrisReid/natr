@@ -83,6 +83,7 @@ class Crypto: ObservableObject {
     func generateSymmetricKey(publicToken: String) throws -> SymmetricKey {
 
         let privateKey = retirevePrivateKey()
+        print("PRIVATE KEY ----- \(privateKey)")
         
 //        do {
 //            let publicKey = try importPublicKey(publicKeyString)
@@ -96,7 +97,8 @@ class Crypto: ObservableObject {
         
         let symmetricKey = sharedSecret.hkdfDerivedSymmetricKey(
             using: SHA256.self,
-            salt: "My Key Agreement Salt".data(using: .utf8)!,
+            salt: "".data(using: .utf8)!,
+//            salt: "My Key Agreement Salt".data(using: .utf8)!,
             sharedInfo: Data(),
             outputByteCount: 32
         )
