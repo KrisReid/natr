@@ -132,24 +132,19 @@ class MessagesViewModel: ObservableObject {
 
 
     func getUserID() -> String {
-        print("11111111111")
         return Auth.auth().currentUser?.uid ?? ""
     }
 
 
     func registerPushNotification(userID: String) {
-        print("33333333333")
         let pushManager = PushNotificationManager(userID: userID)
         pushManager.registerForPushNotifications()
-        print("444444444444")
     }
 
 
     func fetchCurrentUser(userID: String) {
-        print("5555555555555")
         Firestore.firestore().collection("users").document(userID).addSnapshotListener { documentSnapshot, error in
-            print("666666666666")
-
+            
             //Clear the favourites model before we populate it with updates (SHIT)
             self.currentUser = User(id: "", name: "", mobileNumber: "", imageUrl: "", fcmToken: "", publicToken: "", groups: [""], favourites: [""])
 
@@ -157,7 +152,6 @@ class MessagesViewModel: ObservableObject {
             try? self.currentUser = document.data(as: User.self) ?? User(id: "", name: "", mobileNumber: "", imageUrl: "", fcmToken: "", publicToken: "", groups: [""], favourites: [""])
 
             //Watch out for a race condition on this thing!!!! Sometimes getting an empty array in the current user favourites
-            print("77777777777777")
             self.fetchFavourites()
         }
     }
@@ -165,14 +159,12 @@ class MessagesViewModel: ObservableObject {
 
 
     func fetchFavourites() {
-        print("88888888888888")
         Firestore.firestore().collection("users").whereField("id", in: self.currentUser.favourites).addSnapshotListener { (querySnapshot, error) in
 
             self.favourites.removeAll()
             guard let documents = querySnapshot?.documents else { return }
 
             self.favourites = documents.compactMap { (queryDocumentSnapshot) -> User? in
-                print("999999999999999999")
                 return try? queryDocumentSnapshot.data(as: User.self)
             }
         }
@@ -183,8 +175,6 @@ class MessagesViewModel: ObservableObject {
 
 
     func fetchMessages(userID: String) {
-
-        print("1111")
 
         Firestore.firestore().collection("groups").whereField("members", arrayContains: userID).addSnapshotListener { (documentSnapshot, error) in
 
@@ -201,12 +191,8 @@ class MessagesViewModel: ObservableObject {
                 let members = data["members"] as? [String] ?? [""]
                 let createdOn = (data["createdOn"] as? Timestamp)?.dateValue() ?? Date()
 
-                print("2222")
-
                 //get users which aren't me and where the group is within the group array
                 self.fetchMessagesReciever(uid: userID, groupId: id, lastMessage: lastMessage)
-
-                print("3333")
 
                 return Group(id: id, createdBy: createdBy, members: members, createdOn: createdOn, lastMessage: lastMessage)
             }
@@ -217,11 +203,9 @@ class MessagesViewModel: ObservableObject {
 
 
     private func fetchMessagesReciever(uid: String, groupId: String, lastMessage: String) {
-        print("4444")
 
         Firestore.firestore().collection("users").whereField("groups", arrayContains: groupId).whereField("id", isNotEqualTo: uid).getDocuments { querySnapshot, error in
 
-            print("5555")
             guard let documents = querySnapshot?.documents else { return }
 
             self.chats.append(contentsOf: documents.map({ (queryDocumentSnapshot) -> Chat in
@@ -237,12 +221,9 @@ class MessagesViewModel: ObservableObject {
                 let recieverGroups = data["groups"] as? [String] ?? [""]
                 let revieverFavourites = data["favourites"] as? [String] ?? [""]
 
-                print("6666")
-
                 return Chat(reciever: User(id: recieverId, name: recieverName, mobileNumber: recieverMobileNumber, imageUrl: recieverImageUrl, fcmToken: recieverFcmToken, publicToken: publicToken, groups: recieverGroups, favourites: revieverFavourites), groupId: groupId, lastMessage: lastMessage)
 
             }))
-
         }
     }
     
@@ -421,10 +402,6 @@ class MessagesViewModel: ObservableObject {
         })
             
     }
-    
-    
-    
-
     
     
     

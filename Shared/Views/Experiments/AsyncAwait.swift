@@ -44,7 +44,9 @@ struct AsyncAwait: View {
             }
             .navigationTitle("ASync / await testing")
             .refreshable {
-                await fetchData()
+//                await fetchData()
+                fetchData()
+                
             }
         }
         .alert(errorMsg, isPresented: $showError) {
@@ -54,33 +56,37 @@ struct AsyncAwait: View {
         }
     }
     
-    func fetchData()async {
-        do {
-            print("000000000000")
-            let userID = try await Auth.auth().currentUser?.uid ?? ""
-            print(userID)
-
-//            sleep(4)
-            print("1111111111111")
-
-            let doc = try await Firestore.firestore().collection("users").document(userID).getDocument().data(as: User.self)
-
-            print("2222222222222")
-
-            guard let userData = doc else {
-                throw DataBaseError.failed
-            }
-
-            print("3333333333333333")
-
-            self.users = [userData]
-
-        }
-        catch {
-            print(error.localizedDescription)
-            showError.toggle()
-        }
+    func fetchData() {
+//        Crypto().deletePrivateKey()
     }
+    
+//    func fetchData()async {
+//        do {
+//            print("000000000000")
+//            let userID = try await Auth.auth().currentUser?.uid ?? ""
+//            print(userID)
+//
+////            sleep(4)
+//            print("1111111111111")
+//
+//            let doc = try await Firestore.firestore().collection("users").document(userID).getDocument().data(as: User.self)
+//
+//            print("2222222222222")
+//
+//            guard let userData = doc else {
+//                throw DataBaseError.failed
+//            }
+//
+//            print("3333333333333333")
+//
+//            self.users = [userData]
+//
+//        }
+//        catch {
+//            print(error.localizedDescription)
+//            showError.toggle()
+//        }
+//    }
     
     
 }

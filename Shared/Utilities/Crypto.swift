@@ -49,7 +49,7 @@ class Crypto: ObservableObject {
         if status != errSecSuccess {
             print("Error: \(status)")
         } else {
-            print("Success!!!!!")
+            print("PRIVATE KEY HAS BEEN STORED")
         }
     }
     
@@ -65,6 +65,8 @@ class Crypto: ObservableObject {
         var result: AnyObject?
         SecItemCopyMatching(query, &result)
         let rawPrivateKey = result as? Data
+        
+        print("PRIVATE KEY IS RETRIEVED")
         return try! Curve25519.KeyAgreement.PrivateKey(rawRepresentation: rawPrivateKey!)
     }
     
@@ -77,34 +79,24 @@ class Crypto: ObservableObject {
             ] as CFDictionary
         
         SecItemDelete(query)
+        print("DELETED PRIVATE KEY FROM STORE")
     }
     
     
     func generateSymmetricKey(publicToken: String) throws -> SymmetricKey {
-
+        
+        let salt = Bundle.main.infoDictionary?["SYMMETRIC_SALT"] as! String
         let privateKey = retirevePrivateKey()
-        print("PRIVATE KEY ----- \(privateKey)")
-        
-//        do {
-//            let publicKey = try importPublicKey(publicKeyString)
-//        }
-//        catch {
-//            print(error.localizedDescription)
-//        }
         let publicKey = try? importPublicKey(publicToken)
-        
         let sharedSecret = try privateKey.sharedSecretFromKeyAgreement(with: publicKey!)
         
         let symmetricKey = sharedSecret.hkdfDerivedSymmetricKey(
             using: SHA256.self,
-            salt: "".data(using: .utf8)!,
-//            salt: "My Key Agreement Salt".data(using: .utf8)!,
+            salt: salt.data(using: .utf8)!,
             sharedInfo: Data(),
             outputByteCount: 32
         )
-        
         return symmetricKey
-            
     }
     
     
@@ -133,7 +125,5 @@ class Crypto: ObservableObject {
             return "Error decrypting message: \(error.localizedDescription)"
         }
     }
-    
-    
     
 }

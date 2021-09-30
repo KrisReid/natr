@@ -25,16 +25,14 @@ class ChatViewModel: ObservableObject {
     func fetchLastMessageID() {
         self.lastMessageId = messages.last?.id ?? ""
     }
-
+    
     
     func fetchGroupMessages(groupId: String, recipientPublicToken: String, usersPublicToken: String) {
-                
-//            let currentUser = Auth.auth().currentUser?.uid ?? ""
+        
+        do {
             let encryption = Crypto()
             let symmetricKey = try encryption.generateSymmetricKey(publicToken: recipientPublicToken)
-            
-            
-            
+  
             Firestore.firestore().collection("groups").document(groupId).collection("messages").order(by: "timeDate").addSnapshotListener { documentSnapshot, error in
                 
                 guard let documents = documentSnapshot?.documents else { return }
@@ -49,36 +47,14 @@ class ChatViewModel: ObservableObject {
                     
                     let decryptText = encryption.decryptText(text: content, symmetricKey: symmetricKey)
                     
-//                    var decryptText: String = ""
-//
-//                    do {
-//                        if userId == currentUser {
-//                            let symmetricKey = try encryption.generateSymmetricKey(publicToken: recipientPublicToken)
-//                            decryptText = encryption.decryptText(text: content, symmetricKey: symmetricKey)
-//                            print("---CURENT USER-----")
-//                            print(decryptText)
-//                        }
-//                        else {
-//                            let symmetricKey = try encryption.generateSymmetricKey(publicToken: usersPublicToken)
-//                            decryptText = encryption.decryptText(text: content, symmetricKey: symmetricKey)
-//                            print("---OTHERzzzzzzz USER-----")
-//                            print(decryptText)
-//                        }
-//                    }
-//                    catch {
-//                        print(error.localizedDescription)
-//                    }
-                        
-                    
-                    
                     return Message(id: id, content: decryptText, userId: userId, timeDate: Timestamp(date: timeDate))
-    //                return Message(id: id, content: content, userId: userId, timeDate: Timestamp(date: Date()))
                     
                 }
-    //            self.messages = documents.compactMap { (queryDocumentSnapshot) -> Message? in
-    //                return try? queryDocumentSnapshot.data(as: Message.self)
-    //            }
             }
+        }
+        catch {
+            print(error)
+        }
     }
     
     
@@ -91,28 +67,20 @@ class ChatViewModel: ObservableObject {
             let symmetricKey = try encryption.generateSymmetricKey(publicToken: publicToken)
             let encryptedText = try encryption.encryptText(text: content, symmetricKey: symmetricKey)
             
-            
-//            let decryptText = encryption.decryptText(text: encryptedText, symmetricKey: symmetricKey)
-//            print("--------3---------")
-//            print(decryptText)
-//
-            
-            
             let newMessageRef = Firestore.firestore().collection("groups").document(groupId).collection("messages").document()
-//            let message = Message(id: newMessageRef.documentID, content: content, userId: userId, timeDate: Timestamp(date: Date()))
             let message = Message(id: newMessageRef.documentID, content: encryptedText, userId: userId, timeDate: Timestamp(date: Date()))
             try newMessageRef.setData(from: message, completion: { (err) in
-
+                
                 // send push
                 //NEED TO ADD ENCRYPTION HERE
                 let sender = PushNotificationSender()
                 sender.sendPushNotification(to: fcmToken, title: senderName, body: content)
-
+                
                 //save latest message
                 //NEED TO ADD ENCRYPTION HERE
                 Firestore.firestore().collection("groups").document(groupId).setData(["lastMessage":content], merge: true)
-//                Firestore.firestore().collection("groups").document(groupId).setData(["lastMessage":encryptedText], merge: true)
-
+                // Firestore.firestore().collection("groups").document(groupId).setData(["lastMessage":encryptedText], merge: true)
+                
                 //fetch last message in the array
                 self.fetchLastMessageID()
             })
