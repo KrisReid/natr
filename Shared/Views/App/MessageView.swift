@@ -15,7 +15,6 @@ struct MessageView : View {
     var currentMessage: Message
     var imageUrl: String
     var isCurrentUser: Bool
-//    var publicToken: String
     
     var body: some View {
         

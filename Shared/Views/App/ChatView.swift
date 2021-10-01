@@ -19,24 +19,18 @@ struct ChatView: View {
     
     var body: some View {
         
-        GeometryReader { geometry in
-
+        ZStack {
+            
             Color("Secondary_Background_Color")
                 .ignoresSafeArea()
             
             VStack {
-                ScrollView {
+                ScrollView (showsIndicators: false) {
                     ScrollViewReader { value in
-                        
-                        Button("") {
-                            value.scrollTo(vm.messages.last?.id, anchor: .bottom)
-                        }
                         
                         ForEach(vm.messages, id: \.self) { message in
                             MessageView(currentMessage: message, imageUrl: chat.reciever.imageUrl, isCurrentUser: message.userId == currentUser.id ? true : false)
                                 .id(message.id)
-//                            MessageView(currentMessage: message, imageUrl: chat.reciever.imageUrl, isCurrentUser: message.userId == currentUser.id ? true : false, publicToken: chat.reciever.publicToken)
-//                                .id(message.id)
                         }
                         .onAppear(perform: {
                             value.scrollTo(vm.messages.last?.id, anchor: .bottom)
@@ -48,14 +42,13 @@ struct ChatView: View {
                 Spacer()
                     
                 TextBox(vm: vm, chat: chat, currentUser: currentUser)
-                
             }
             .offset(x: 0, y: keyboard.currentHeight == 0.0 ? 0 : -keyboard.currentHeight)
             .navigationBarTitle(Text(chat.reciever.name), displayMode: .inline)
             .ignoresSafeArea(.all, edges: .bottom)
             .ignoresSafeArea(.keyboard, edges: .bottom)
             .onTapGesture {
-                self.endEditing(true)
+                self.hideKeyboard()
             }
         }
     }
