@@ -9,7 +9,7 @@ import SwiftUI
 
 struct natrLogo: View {
     
-    @State var width: CGFloat = 3
+//    @State var width: CGFloat = 3
 
     var body: some View {
 
