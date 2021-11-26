@@ -14,7 +14,7 @@ import FirebaseFirestoreSwift
 class ChatViewModel: ObservableObject {
     
     @Published var messages = [Message]()
-    @Published var lastMessageId: String = ""
+//    @Published var lastMessageId: String = ""
     
     
     init(groupId: String, recipientPublicToken: String, usersPublicToken: String) {
@@ -22,9 +22,9 @@ class ChatViewModel: ObservableObject {
     }
     
     
-    func fetchLastMessageID() {
-        self.lastMessageId = messages.last?.id ?? ""
-    }
+//    func fetchLastMessageID() {
+//        self.lastMessageId = messages.last?.id ?? ""
+//    }
     
     
     func fetchGroupMessages(groupId: String, recipientPublicToken: String, usersPublicToken: String) {
@@ -77,12 +77,11 @@ class ChatViewModel: ObservableObject {
                 sender.sendPushNotification(to: fcmToken, title: senderName, body: content)
                 
                 //save latest message
-                //NEED TO ADD ENCRYPTION HERE
-                Firestore.firestore().collection("groups").document(groupId).setData(["lastMessage":content], merge: true)
-                // Firestore.firestore().collection("groups").document(groupId).setData(["lastMessage":encryptedText], merge: true)
+                //NEED TO ADD ENCRYPTION HERE AND THIS IS CAUSING AN ISSUE
+//                Firestore.firestore().collection("groups").document(groupId).setData(["lastMessage":content], merge: true)
                 
                 //fetch last message in the array
-                self.fetchLastMessageID()
+//                self.fetchLastMessageID()
             })
         }
         catch {

@@ -49,6 +49,7 @@ struct TextBox: View {
     }
     
     func sendMessage() {
+        //TRIED REMOVING AND FINE
         vm.postMessage(content: text, userId: currentUser.id, groupId: chat.groupId, fcmToken: chat.reciever.fcmToken, publicToken: chat.reciever.publicToken, senderName: currentUser.name)
         text = ""
         hideKeyboard()

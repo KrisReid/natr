@@ -35,6 +35,9 @@ struct ChatView: View {
                         .onAppear(perform: {
                             value.scrollTo(vm.messages.last?.id, anchor: .bottom)
                         })
+                        .onChange(of: vm.messages) { newValue in
+                            value.scrollTo(vm.messages.last?.id, anchor: .bottom)
+                        }
                     }
                 }
                 .padding(.horizontal)

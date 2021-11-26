@@ -172,8 +172,6 @@ class MessagesViewModel: ObservableObject {
 
     
     //Need to make this sychronose
-
-
     func fetchMessages(userID: String) {
 
         Firestore.firestore().collection("groups").whereField("members", arrayContains: userID).addSnapshotListener { (documentSnapshot, error) in
@@ -182,6 +180,8 @@ class MessagesViewModel: ObservableObject {
             self.chats.removeAll()
 
             guard let documents = documentSnapshot?.documents else { return }
+            
+            print(documents)
 
             self.groups = documents.map { (queryDocumentSnapshot) -> Group in
                 let data = queryDocumentSnapshot.data()
@@ -197,6 +197,7 @@ class MessagesViewModel: ObservableObject {
                 return Group(id: id, createdBy: createdBy, members: members, createdOn: createdOn, lastMessage: lastMessage)
             }
         }
+        
     }
 
 
