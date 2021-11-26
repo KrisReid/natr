@@ -39,7 +39,8 @@ struct MessageCellView: View {
     
     var body: some View {
         
-        HStack (alignment: .top) {
+//        HStack (alignment: .top) {
+        HStack (alignment: .center) {
             
             WebImage(url: URL(string: message.reciever.imageUrl))
                 .resizable()
@@ -48,12 +49,12 @@ struct MessageCellView: View {
                 .overlay(Circle().stroke(lineWidth: 0.5))
                 .cornerRadius(32)
             
-            VStack (alignment: .leading){
+            VStack (alignment: .leading) {
                 Text(message.reciever.name)
                     .font(.system(size: 16, weight: .regular))
-                Text(message.lastMessage)
-                    .font(.system(size: 16, weight: .light))
-                    .padding(.top, 1)
+//                Text(message.lastMessage)
+//                    .font(.system(size: 16, weight: .light))
+//                    .padding(.top, 1)
             }
 
         }
