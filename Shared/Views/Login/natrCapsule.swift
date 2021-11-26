@@ -20,13 +20,11 @@ struct natrCapsule: View {
             .fill(Color(#colorLiteral(red: 0.9741148353, green: 0.5559167266, blue: 0.504724443, alpha: 1)))
             .frame(width: 3, height: height, alignment: .center)
             .offset(y: positionY)
-            .onAppear {
-                withAnimation (
-                    Animation.interpolatingSpring(mass: 1, stiffness: 10, damping: 4, initialVelocity: 5).delay(delay)) {
-                        if positionY == -300 {
-                            positionY += offsetY - positionY
-                        }
-                    }
+            .animation(.interpolatingSpring(mass: 1, stiffness: 10, damping: 4, initialVelocity: 5).delay(delay))
+            .onAppear() {
+                if positionY == -300 {
+                    positionY += offsetY - positionY
+                }
             }
     }
 }

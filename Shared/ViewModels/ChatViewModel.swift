@@ -14,17 +14,10 @@ import FirebaseFirestoreSwift
 class ChatViewModel: ObservableObject {
     
     @Published var messages = [Message]()
-//    @Published var lastMessageId: String = ""
-    
     
     init(groupId: String, recipientPublicToken: String, usersPublicToken: String) {
         fetchGroupMessages(groupId: groupId, recipientPublicToken: recipientPublicToken, usersPublicToken: usersPublicToken)
     }
-    
-    
-//    func fetchLastMessageID() {
-//        self.lastMessageId = messages.last?.id ?? ""
-//    }
     
     
     func fetchGroupMessages(groupId: String, recipientPublicToken: String, usersPublicToken: String) {
@@ -80,8 +73,6 @@ class ChatViewModel: ObservableObject {
                 //NEED TO ADD ENCRYPTION HERE AND THIS IS CAUSING AN ISSUE
 //                Firestore.firestore().collection("groups").document(groupId).setData(["lastMessage":content], merge: true)
                 
-                //fetch last message in the array
-//                self.fetchLastMessageID()
             })
         }
         catch {

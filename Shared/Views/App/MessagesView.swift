@@ -47,7 +47,7 @@ struct MessagesView: View {
             }
             .navigationBarTitle("Messages")
             
-//            .navigationBarItems(leading: Button(action: showModalTesting, label: {
+//            .navigationBarItems(leading: Button(action: Crypto().deletePrivateKey, label: {
 //                Image(systemName: "graduationcap")
 //                    .foregroundColor(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)))
 //                .font(.system(size: 26, weight: .light))}), trailing: Button(action: showContactList, label: {
@@ -65,9 +65,9 @@ struct MessagesView: View {
             .sheet(isPresented: $showModal) {
                 ContactsView(isPresented: self.$showModal)
             }
-//            .sheet(isPresented: $showModalTest) {
-//                AsyncAwait(isPresented: self.$showModalTest)
-//            }
+            .sheet(isPresented: $showModalTest) {
+                AsyncAwait(isPresented: self.$showModalTest)
+            }
         }
     }
     
@@ -75,9 +75,9 @@ struct MessagesView: View {
         self.showModal = true
     }
     
-    private func showModalTesting() {
-        self.showModalTest = true
-    }
+//    private func showModalTesting() {
+//        self.showModalTest = true
+//    }
     
 }
 
