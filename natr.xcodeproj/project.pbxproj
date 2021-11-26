@@ -83,10 +83,6 @@
 		024CDA7526CF8A7A0031670E /* natrLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024CDA7326CF8A7A0031670E /* natrLogo.swift */; };
 		024CDA7726CFCB4A0031670E /* natrCapsule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024CDA7626CFCB4A0031670E /* natrCapsule.swift */; };
 		024CDA7826CFCB4A0031670E /* natrCapsule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024CDA7626CFCB4A0031670E /* natrCapsule.swift */; };
-		0261EB7226E567C900C72E51 /* HashExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0261EB7126E567C900C72E51 /* HashExample.swift */; };
-		0261EB7326E567C900C72E51 /* HashExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0261EB7126E567C900C72E51 /* HashExample.swift */; };
-		0261EB7526E5695800C72E51 /* HashingPOCHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0261EB7426E5695800C72E51 /* HashingPOCHelper.swift */; };
-		0261EB7626E5695800C72E51 /* HashingPOCHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0261EB7426E5695800C72E51 /* HashingPOCHelper.swift */; };
 		0261EB7826EA431000C72E51 /* Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0261EB7726EA431000C72E51 /* Crypto.swift */; };
 		0261EB7926EA431000C72E51 /* Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0261EB7726EA431000C72E51 /* Crypto.swift */; };
 		0271251926F0C9A300E96011 /* AsyncAwait.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0271251826F0C9A300E96011 /* AsyncAwait.swift */; };
@@ -162,8 +158,6 @@
 		024CDA7226CE72740031670E /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		024CDA7326CF8A7A0031670E /* natrLogo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = natrLogo.swift; sourceTree = "<group>"; };
 		024CDA7626CFCB4A0031670E /* natrCapsule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = natrCapsule.swift; sourceTree = "<group>"; };
-		0261EB7126E567C900C72E51 /* HashExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashExample.swift; sourceTree = "<group>"; };
-		0261EB7426E5695800C72E51 /* HashingPOCHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashingPOCHelper.swift; sourceTree = "<group>"; };
 		0261EB7726EA431000C72E51 /* Crypto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Crypto.swift; sourceTree = "<group>"; };
 		0271251826F0C9A300E96011 /* AsyncAwait.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncAwait.swift; sourceTree = "<group>"; };
 		0271251B26F36F1000E96011 /* Timeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timeline.swift; sourceTree = "<group>"; };
@@ -318,7 +312,6 @@
 				0220CA4726B8348900B640EF /* LoginViewModel.swift */,
 				0220CA7C26BBF78A00B640EF /* MessagesViewModel.swift */,
 				0220CA7F26BBF7A900B640EF /* ChatViewModel.swift */,
-				0261EB7426E5695800C72E51 /* HashingPOCHelper.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -376,7 +369,6 @@
 		0271251E26F6146500E96011 /* Experiments */ = {
 			isa = PBXGroup;
 			children = (
-				0261EB7126E567C900C72E51 /* HashExample.swift */,
 				0271251B26F36F1000E96011 /* Timeline.swift */,
 				0271251826F0C9A300E96011 /* AsyncAwait.swift */,
 			);
@@ -580,13 +572,11 @@
 				0286A2E626C6601E007502AD /* Blob.swift in Sources */,
 				0220CA4B26B834B800B640EF /* Countries.swift in Sources */,
 				0261EB7826EA431000C72E51 /* Crypto.swift in Sources */,
-				0261EB7226E567C900C72E51 /* HashExample.swift in Sources */,
 				0220CA9526BBF85400B640EF /* ViewExtension.swift in Sources */,
 				0220CA6826BBF6B600B640EF /* FavouriteCarouselView.swift in Sources */,
 				0271251926F0C9A300E96011 /* AsyncAwait.swift in Sources */,
 				0220CA6526BBF69F00B640EF /* SearchView.swift in Sources */,
 				0220CA6226BBF68300B640EF /* MessagesView.swift in Sources */,
-				0261EB7526E5695800C72E51 /* HashingPOCHelper.swift in Sources */,
 				0220CA5B26B8369A00B640EF /* ImagePicker.swift in Sources */,
 				0220CA1226B829B900B640EF /* natrApp.swift in Sources */,
 				02818A7026E26883005D8D8C /* TextBox.swift in Sources */,
@@ -624,13 +614,11 @@
 				0286A2E726C6601E007502AD /* Blob.swift in Sources */,
 				0220CA4C26B834B800B640EF /* Countries.swift in Sources */,
 				0261EB7926EA431000C72E51 /* Crypto.swift in Sources */,
-				0261EB7326E567C900C72E51 /* HashExample.swift in Sources */,
 				0220CA9626BBF85400B640EF /* ViewExtension.swift in Sources */,
 				0220CA6926BBF6B600B640EF /* FavouriteCarouselView.swift in Sources */,
 				0271251A26F0C9A300E96011 /* AsyncAwait.swift in Sources */,
 				0220CA6626BBF69F00B640EF /* SearchView.swift in Sources */,
 				0220CA6326BBF68300B640EF /* MessagesView.swift in Sources */,
-				0261EB7626E5695800C72E51 /* HashingPOCHelper.swift in Sources */,
 				0220CA5C26B8369A00B640EF /* ImagePicker.swift in Sources */,
 				0220CA1326B829B900B640EF /* natrApp.swift in Sources */,
 				02818A7126E26883005D8D8C /* TextBox.swift in Sources */,
