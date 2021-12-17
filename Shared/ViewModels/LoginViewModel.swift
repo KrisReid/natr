@@ -17,7 +17,6 @@ class LoginViewModel: ObservableObject {
     @Published var mobileNumber = ""
     @Published var imageUrl = ""
 
-
     @Published var code = ""
     @Published var CODE = ""
 
